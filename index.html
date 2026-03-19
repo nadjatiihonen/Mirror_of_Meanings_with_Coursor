@@ -1,0 +1,1300 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mirror of Meanings — an honest talk with yourself</title>
+    <meta
+      name="description"
+      content="Concept site for “Mirror of Meanings”: an honest talk with yourself through strong questions and gentle coaching."
+    />
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #050806;
+        --bg-2: #0b1512;
+        --glass: rgba(255, 255, 255, 0.06);
+        --stroke: rgba(255, 255, 255, 0.14);
+        --text: #eef5f1;
+        --muted: #aabeb3;
+        --accent: #63e0b5;
+        --accent-2: #9ce59b;
+        --success: #62f0c8;
+        --shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+        --bg-image: url("forest-bg.jpg");
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Inter", "Manrope", system-ui, -apple-system, sans-serif;
+        background-color: var(--bg);
+        background-image: var(--bg-image);
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        color: var(--text);
+        min-height: 100vh;
+        overflow-x: hidden;
+        position: relative;
+      }
+
+      body::before,
+      body::after {
+        content: "";
+        position: fixed;
+        inset: -10%;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      body::before {
+        background: radial-gradient(70% 35% at 70% 20%, rgba(170, 240, 210, 0.18), transparent 60%),
+          radial-gradient(60% 30% at 20% 70%, rgba(80, 180, 130, 0.18), transparent 60%);
+        filter: blur(40px);
+        opacity: 0.7;
+      }
+
+      body::after {
+        background: linear-gradient(180deg, rgba(5, 8, 6, 0.1), rgba(5, 8, 6, 0.9)),
+          radial-gradient(60% 60% at 50% 20%, transparent 30%, rgba(5, 8, 6, 0.85) 90%);
+        opacity: 0.9;
+      }
+
+      .noise {
+        pointer-events: none;
+        position: fixed;
+        inset: 0;
+        opacity: 0.05;
+        background-image: url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.25'/%3E%3C/svg%3E");
+        mix-blend-mode: soft-light;
+        z-index: 1;
+      }
+
+      .container {
+        position: relative;
+        z-index: 2;
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 32px 24px 120px;
+      }
+
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+      }
+
+      .logo {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 600;
+        letter-spacing: 0.2px;
+      }
+
+      .logo-mark {
+        width: 38px;
+        height: 38px;
+        border-radius: 14px;
+        background: linear-gradient(135deg, #63e0b5, #9ce59b);
+        box-shadow: 0 10px 30px rgba(99, 224, 181, 0.35);
+        position: relative;
+        overflow: hidden;
+        animation: glow 5s ease-in-out infinite;
+      }
+
+      .logo-mark::after {
+        content: "";
+        position: absolute;
+        inset: 4px;
+        border-radius: 12px;
+        background: rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(4px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .tag {
+        font-size: 13px;
+        padding: 6px 12px;
+        border-radius: 999px;
+        background: rgba(99, 224, 181, 0.18);
+        color: #d9f7eb;
+        border: 1px solid rgba(99, 224, 181, 0.4);
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 48px;
+        margin-top: 64px;
+        align-items: center;
+      }
+
+      .hero h1 {
+        font-size: clamp(2.4rem, 4vw, 3.4rem);
+        line-height: 1.1;
+        margin: 0 0 18px;
+      }
+
+      .hero p {
+        color: var(--muted);
+        font-size: 1.05rem;
+        line-height: 1.7;
+        margin: 0 0 32px;
+      }
+
+      .cta-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        align-items: center;
+      }
+
+      .button {
+        padding: 14px 22px;
+        border-radius: 14px;
+        border: 1px solid transparent;
+        font-weight: 600;
+        color: #07110c;
+        background: linear-gradient(135deg, #7ce9c3, #b7f1a6);
+        text-decoration: none;
+        box-shadow: 0 18px 40px rgba(99, 224, 181, 0.25);
+        transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .button.secondary {
+        color: var(--text);
+        background: transparent;
+        border-color: rgba(255, 255, 255, 0.2);
+        box-shadow: none;
+      }
+
+      .button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 24px 50px rgba(99, 224, 181, 0.35);
+        filter: brightness(1.05);
+      }
+
+      .button.secondary:hover {
+        box-shadow: 0 12px 30px rgba(255, 255, 255, 0.12);
+      }
+
+      .button.secondary.is-active {
+        border-color: rgba(99, 224, 181, 0.8);
+        background: rgba(99, 224, 181, 0.15);
+        box-shadow: 0 12px 30px rgba(99, 224, 181, 0.2);
+      }
+
+      .lang-toggle {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+      }
+
+      .lang-button {
+        padding: 8px 12px;
+        font-size: 0.85rem;
+        border-radius: 999px;
+      }
+
+      .button:active,
+      .button.is-pressed {
+        transform: translateY(1px) scale(0.99);
+      }
+
+      .button:focus-visible {
+        outline: 2px solid rgba(124, 233, 195, 0.8);
+        outline-offset: 3px;
+      }
+
+      .glass {
+        background: var(--glass);
+        border: 1px solid var(--stroke);
+        border-radius: 24px;
+        padding: 24px;
+        backdrop-filter: blur(18px);
+        box-shadow: var(--shadow);
+        transition: transform 0.25s ease, box-shadow 0.25s ease, border 0.25s ease;
+      }
+
+      .glass:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 40px 90px rgba(0, 0, 0, 0.5);
+        border-color: rgba(99, 224, 181, 0.35);
+      }
+
+      .phone {
+        max-width: 360px;
+        margin-left: auto;
+        animation: float 6s ease-in-out infinite;
+      }
+
+      .phone-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+      }
+
+      .pill {
+        padding: 6px 12px;
+        border-radius: 999px;
+        background: rgba(99, 224, 181, 0.18);
+        border: 1px solid rgba(99, 224, 181, 0.5);
+        color: #d6fff1;
+        font-size: 12px;
+      }
+
+      .chat-bubble {
+        padding: 16px 18px;
+        border-radius: 18px;
+        margin-bottom: 12px;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        opacity: 0;
+        transform: translateY(14px);
+        transition: opacity 0.6s ease, transform 0.6s ease;
+      }
+
+      .chat-bubble.ai {
+        background: linear-gradient(135deg, rgba(99, 224, 181, 0.22), rgba(156, 229, 155, 0.18));
+        border-color: rgba(99, 224, 181, 0.3);
+      }
+
+      .chat-bubble.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .section {
+        margin-top: 96px;
+      }
+
+      .section h2 {
+        font-size: clamp(1.8rem, 3vw, 2.4rem);
+        margin-bottom: 20px;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 20px;
+      }
+
+      .feature h3 {
+        margin-top: 0;
+        margin-bottom: 10px;
+      }
+
+      .feature p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      .story-card {
+        display: grid;
+        gap: 14px;
+        padding: 22px;
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: linear-gradient(160deg, rgba(255, 255, 255, 0.08), rgba(99, 224, 181, 0.08));
+        transition: transform 0.25s ease, box-shadow 0.25s ease, border 0.25s ease;
+      }
+
+      .story-card .title {
+        font-size: 14px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.6);
+      }
+
+      .story-card .quote {
+        font-size: 1.2rem;
+        line-height: 1.5;
+      }
+
+      .stat {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 0.95rem;
+        color: var(--muted);
+      }
+
+      .stat span {
+        color: var(--text);
+        font-weight: 600;
+      }
+
+      .ai-grid {
+        display: grid;
+        gap: 12px;
+        margin-top: 14px;
+      }
+
+      .ai-item {
+        padding: 12px 14px;
+        border-radius: 14px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(8, 16, 12, 0.55);
+      }
+
+      .ai-label {
+        font-size: 0.75rem;
+        color: rgba(255, 255, 255, 0.55);
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        margin-bottom: 6px;
+      }
+
+      .color-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .color-swatch {
+        width: 28px;
+        height: 28px;
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
+        background: #7edbb2;
+      }
+
+      .copy-button {
+        padding: 8px 12px;
+        font-size: 0.85rem;
+        border-radius: 10px;
+      }
+
+      .story-card:hover {
+        transform: translateY(-6px) scale(1.01);
+        border-color: rgba(99, 224, 181, 0.35);
+        box-shadow: 0 24px 50px rgba(99, 224, 181, 0.18);
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(18px);
+        transition: opacity 0.6s ease, transform 0.6s ease;
+      }
+
+      .reveal.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-12px);
+        }
+      }
+
+      @keyframes glow {
+        0%,
+        100% {
+          filter: drop-shadow(0 10px 24px rgba(99, 224, 181, 0.35));
+        }
+        50% {
+          filter: drop-shadow(0 16px 32px rgba(156, 229, 155, 0.5));
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation: none !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+
+      footer {
+        margin-top: 100px;
+        color: rgba(255, 255, 255, 0.5);
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        justify-content: space-between;
+      }
+
+      @media (max-width: 720px) {
+        header {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .phone {
+          margin: 0;
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="noise"></div>
+    <div class="container">
+      <header>
+        <div class="logo">
+          <div class="logo-mark"></div>
+          <div>
+            <div data-i18n="brand.name">Зеркало смыслов</div>
+            <div class="tag" data-i18n="brand.tagline">Telegram-помощник для честных ответов</div>
+          </div>
+        </div>
+        <div class="cta-row">
+          <a class="button secondary" href="#demo" data-i18n="cta.demo">Смотреть демо</a>
+          <a class="button" href="#start" data-i18n="cta.create">Создать первую сессию</a>
+          <div class="lang-toggle">
+            <button class="button secondary lang-button" data-lang="en" type="button">EN</button>
+            <button class="button secondary lang-button" data-lang="ru" type="button">RU</button>
+            <button class="button secondary lang-button" data-lang="fi" type="button">FI</button>
+          </div>
+        </div>
+      </header>
+
+      <section class="hero">
+        <div>
+          <h1 data-i18n="hero.title">Разговор с собой, который дает ясность за 7 минут.</h1>
+          <p data-i18n="hero.subtitle">
+            «Зеркало смыслов» — это бот, который задает один сильный вопрос, помогает
+            уточнить ответ и возвращает твою мысль через неделю. Мягкий коучинг без
+            давления и лишнего шума.
+          </p>
+          <div class="cta-row">
+            <a class="button" href="#start" data-i18n="cta.launch">Запустить MVP</a>
+            <a class="button secondary" href="#stories" data-i18n="cta.storyCard">Скачать карточку в сторис</a>
+          </div>
+          <div class="cta-row" style="margin-top: 18px;">
+            <div class="stat"><span>100+</span> <span data-i18n="stat.questions">авторских вопросов</span></div>
+            <div class="stat"><span>4</span> <span data-i18n="stat.focusAreas">сферы фокуса</span></div>
+            <div class="stat"><span>1</span> <span data-i18n="stat.dailyAnswer">честный ответ в день</span></div>
+          </div>
+        </div>
+
+        <div class="phone glass reveal" id="demo">
+          <div class="phone-header">
+            <div>
+              <strong data-i18n="demo.sessionTitle">Сессия · Смысл</strong><br />
+              <small style="color: rgba(255, 255, 255, 0.5)" data-i18n="demo.time">Сегодня, 20:14</small>
+            </div>
+            <div class="pill" data-i18n="demo.pill">Прототип</div>
+          </div>
+          <div class="chat-bubble ai" data-animate="bubble" data-i18n="demo.ai1">
+            Что ты хочешь почувствовать в конце этой недели, чтобы назвать ее важной?
+          </div>
+          <div class="chat-bubble" data-animate="bubble" data-i18n="demo.user1">
+            Мне нужно вернуть ощущение свободы и легкости. Сейчас все слишком тяжело.
+          </div>
+          <div class="chat-bubble ai" data-animate="bubble" data-i18n="demo.ai2">
+            Какая одна маленькая вещь уже завтра может дать тебе ощущение свободы?
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="app">
+        <h2 data-i18n="app.title">Мини-приложение на странице</h2>
+        <div class="grid">
+          <div class="glass feature reveal" style="grid-column: span 2;">
+            <h3 data-i18n="app.subtitle">Выбери фокус и получи сильный вопрос</h3>
+            <p data-i18n="app.lead">Все работает прямо в браузере: вопросы из базы, ответы сохраняются локально.</p>
+            <div class="cta-row" style="margin: 18px 0;">
+              <button class="button secondary focus-button" data-focus="Состояние" data-i18n="focus.state" type="button">Состояние</button>
+              <button class="button secondary focus-button" data-focus="Работа" data-i18n="focus.work" type="button">Работа</button>
+              <button class="button secondary focus-button" data-focus="Отношения" data-i18n="focus.relationships" type="button">Отношения</button>
+              <button class="button secondary focus-button" data-focus="Смысл" data-i18n="focus.meaning" type="button">Смысл</button>
+              <button class="button secondary" id="randomAll" data-i18n="focus.randomAll" type="button">Случайный из всех</button>
+            </div>
+            <div class="glass" style="padding: 18px;">
+              <div style="font-size: 0.85rem; color: rgba(255,255,255,0.55); text-transform: uppercase; letter-spacing: 0.2em;" data-i18n="question.label">Сильный вопрос</div>
+              <div id="questionText" style="margin: 10px 0 18px; font-size: 1.1rem;">
+                Choose a focus to start.
+              </div>
+              <textarea
+                id="answerInput"
+                data-i18n-placeholder="answer.placeholder"
+                placeholder="Напиши здесь честный ответ..."
+                rows="4"
+                style="width: 100%; border-radius: 16px; border: 1px solid rgba(255,255,255,0.12); background: rgba(8, 16, 12, 0.6); color: var(--text); padding: 14px; font-size: 1rem; resize: vertical;"
+              ></textarea>
+              <div class="cta-row" style="margin-top: 16px;">
+                <button class="button" id="saveAnswer" data-i18n="actions.save" type="button">Сохранить в архив</button>
+                <button class="button secondary" id="nextQuestion" data-i18n="actions.next" type="button">Следующий вопрос</button>
+                <button class="button secondary" id="aiCoach" data-i18n="actions.aiReflection" type="button">ИИ‑отражение</button>
+              </div>
+              <div class="stat" style="margin-top: 14px;">
+                <span id="crystalCount">0</span> <span data-i18n="crystals.label">кристаллов ясности</span>
+              </div>
+              <div id="aiResponse" class="glass" style="margin-top: 16px; padding: 14px; display: none;">
+                <div style="font-size: 0.8rem; color: rgba(255,255,255,0.55); text-transform: uppercase; letter-spacing: 0.2em;" data-i18n="ai.header">
+                  Интерпретация от ИИ
+                </div>
+                <div id="aiReflection" style="margin-top: 10px; font-size: 1.05rem;"></div>
+                <div class="cta-row" style="margin-top: 10px;">
+                  <button class="button secondary copy-button" id="copyAffirmation" data-i18n="actions.copyAffirmation" type="button">
+                    Скопировать аффирмацию
+                  </button>
+                  <div id="copyStatus" style="color: rgba(255,255,255,0.65); font-size: 0.85rem;"></div>
+                </div>
+                <div class="ai-grid">
+                  <div class="ai-item">
+                    <div class="ai-label" data-i18n="ai.affirmationLabel">Аффирмация</div>
+                    <div id="aiAffirmation"></div>
+                  </div>
+                  <div class="ai-item">
+                    <div class="ai-label" data-i18n="ai.colorLabel">Цвет дня</div>
+                    <div class="color-row">
+                      <div class="color-swatch" id="aiColorSwatch"></div>
+                      <div id="aiColor"></div>
+                    </div>
+                  </div>
+                  <div class="ai-item">
+                    <div class="ai-label" data-i18n="ai.metaphorLabel">Образ</div>
+                    <div id="aiMetaphor"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="glass feature reveal">
+            <h3 data-i18n="archive.title">Архив откровений</h3>
+            <p data-i18n="archive.lead">Последние записи хранятся в браузере. Можно удалить в любой момент.</p>
+            <div id="archiveList" style="display: grid; gap: 12px; margin-top: 12px;"></div>
+            <button class="button secondary" id="clearArchive" data-i18n="archive.clear" type="button" style="margin-top: 14px;">
+              Очистить архив
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="start">
+        <h2 data-i18n="how.title">Как это работает</h2>
+        <div class="grid">
+          <div class="glass feature reveal">
+            <h3 data-i18n="how.step1.title">1. Выбор фокуса</h3>
+            <p data-i18n="how.step1.text">Работа, отношения, состояние, смысл. Бот мягко фиксирует текущую точку.</p>
+          </div>
+          <div class="glass feature reveal">
+            <h3 data-i18n="how.step2.title">2. Сильный вопрос</h3>
+            <p data-i18n="how.step2.text">Один глубокий вопрос открывает дверь в подсознание.</p>
+          </div>
+          <div class="glass feature reveal">
+            <h3 data-i18n="how.step3.title">3. ИИ-уточнение</h3>
+            <p data-i18n="how.step3.text">Ассистент помогает докопаться до сути или подсвечивает паттерны.</p>
+          </div>
+          <div class="glass feature reveal">
+            <h3 data-i18n="how.step4.title">4. Архив откровений</h3>
+            <p data-i18n="how.step4.text">Через 7 дней ты возвращаешься к своей мысли и видишь рост.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="stories">
+        <h2 data-i18n="stories.title">Виральные карточки</h2>
+        <div class="grid">
+          <div class="story-card reveal">
+            <div class="title" data-i18n="brand.name">Зеркало смыслов</div>
+            <div class="quote" data-i18n="stories.card1.quote">«Мой главный приоритет сейчас — свобода. Я готова начать с малого.»</div>
+            <div class="stat">
+              <span data-i18n="stories.weekLabel">Неделя #12</span> · <span data-i18n="stories.reflectionLabel">Рефлексия</span>
+            </div>
+          </div>
+          <div class="story-card reveal">
+            <div class="title" data-i18n="brand.name">Зеркало смыслов</div>
+            <div class="quote" data-i18n="stories.card2.quote">«Мне важна честность, даже если она неудобна.»</div>
+            <div class="stat">
+              <span data-i18n="stories.focusLabel">Сфера</span> · <span data-i18n="focus.relationships">Отношения</span>
+            </div>
+          </div>
+          <div class="story-card reveal">
+            <div class="title" data-i18n="brand.name">Зеркало смыслов</div>
+            <div class="quote" data-i18n="stories.card3.quote">«Я хочу слышать себя, а не ожидания других.»</div>
+            <div class="stat">
+              <span data-i18n="stories.focusLabel">Сфера</span> · <span data-i18n="focus.meaning">Смысл</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2 data-i18n="monetization.title">Монетизация MVP</h2>
+        <div class="grid">
+          <div class="glass feature reveal">
+            <h3 data-i18n="monetization.card1.title">Freemium</h3>
+            <p data-i18n="monetization.card1.text">
+              Базовые вопросы бесплатны, глубинные категории и безлимитный чат — по подписке.
+            </p>
+          </div>
+          <div class="glass feature reveal">
+            <h3 data-i18n="monetization.card2.title">AI-аналитика</h3>
+            <p data-i18n="monetization.card2.text">Резюме недели: «Похоже, сейчас твой приоритет — свобода».</p>
+          </div>
+          <div class="glass feature reveal">
+            <h3 data-i18n="monetization.card3.title">Без кода</h3>
+            <p data-i18n="monetization.card3.text">Сборка на PuzzleBot + Make + OpenAI без команды разработчиков.</p>
+          </div>
+          <div class="glass feature reveal">
+            <h3 data-i18n="monetization.card4.title">Поддержка роста</h3>
+            <p data-i18n="monetization.card4.text">Глубокие серии вопросов и персональные подборки.</p>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        <div data-i18n="footer.line1">Концепт для быстрого теста ценности · 2026</div>
+        <div data-i18n="footer.line2">Доступно как Telegram-бот · Coming soon</div>
+      </footer>
+    </div>
+    <script>
+      const buttons = document.querySelectorAll(".button");
+      buttons.forEach((button) => {
+        button.addEventListener("click", () => {
+          button.classList.add("is-pressed");
+          window.setTimeout(() => button.classList.remove("is-pressed"), 220);
+        });
+      });
+
+      const bubbles = document.querySelectorAll('[data-animate="bubble"]');
+      bubbles.forEach((bubble, index) => {
+        window.setTimeout(() => bubble.classList.add("is-visible"), 500 + index * 350);
+      });
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.2 }
+      );
+
+      document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+
+      const QUESTIONS = [
+        // Work (25)
+        { focus: "Работа", question: "Какое дело сегодня принесло тебе энергию, а какое — выпило ее до дна?" },
+        { focus: "Работа", question: "Если бы твоя должность называлась «Миссия», как бы она звучала?" },
+        { focus: "Работа", question: "Что ты продолжаешь делать только потому, что «уже поздно что-то менять»?" },
+        { focus: "Работа", question: "В чем твоя уникальная «суперсила», которую ты боишься проявлять?" },
+        { focus: "Работа", question: "Если бы тебе разрешили работать всего 2 часа в неделю, на что бы ты их потратил(а)?" },
+        { focus: "Работа", question: "Кто в твоем окружении заставляет тебя чувствовать себя маленьким и некомпетентным?" },
+        { focus: "Работа", question: "Какую одну вещь в своей работе ты бы изменил(а) сегодня, если бы не боялся осуждения?" },
+        { focus: "Работа", question: "Ты сейчас бежишь к цели или от проблемы?" },
+        { focus: "Работа", question: "Что самое смелое ты сделал(а) на этой неделе в профессиональном плане?" },
+        { focus: "Работа", question: "Какой совет ты бы дал(а) самому себе в первый день на этой работе?" },
+        { focus: "Работа", question: "Какой проект ты бы начал(а) завтра, если бы у тебя был безусловный доход?" },
+        { focus: "Работа", question: "Если бы твоя карьера была деревом, оно сейчас цветет, дает плоды или сохнет?" },
+        { focus: "Работа", question: "Что ты терпишь на работе только ради того, чтобы не казаться «неудачником»?" },
+        { focus: "Работа", question: "Какая профессиональная мечта кажется тебе слишком «дерзкой», чтобы произнести ее вслух?" },
+        { focus: "Работа", question: "Если бы ты нанял(а) себя как сотрудника, за что бы уволил(а) в первую очередь?" },
+        { focus: "Работа", question: "В какой момент работы ты в последний раз чувствовал(а) состояние «потока»?" },
+        { focus: "Работа", question: "Что ты делаешь на работе «автоматически», давно перестав вкладывать смысл?" },
+        { focus: "Работа", question: "Если бы твоя работа была вкладом в будущее, что бы ты хотел(а) оставить после себя?" },
+        { focus: "Работа", question: "Какое твое умение люди недооценивают, потому что ты сам(а) его не ценишь?" },
+        { focus: "Работа", question: "Чьему профессиональному пути ты завидуешь и что именно в нем тебя цепляет?" },
+        { focus: "Работа", question: "Какой конфликт на работе ты избегаешь, хотя он мог бы все прояснить?" },
+        { focus: "Работа", question: "Если бы ты мог(ла) изменить одну черту своего начальника, что бы это было?" },
+        { focus: "Работа", question: "Какую цену ты на самом деле платишь за свой текущий уровень дохода?" },
+        { focus: "Работа", question: "Что ты считаешь своей «зоной гениальности», где тебе нет равных?" },
+        { focus: "Работа", question: "Какое одно маленькое действие завтра сделает твой рабочий день на 10% осмысленнее?" },
+
+        // Relationships (25)
+        { focus: "Отношения", question: "Кого в своей жизни ты любишь «за что-то», а кого — вопреки всему?" },
+        { focus: "Отношения", question: "О чем ты молчишь в разговоре с близким человеком, чтобы не разрушить хрупкий мир?" },
+        { focus: "Отношения", question: "Какую черту в других людях ты ненавидишь больше всего?" },
+        { focus: "Отношения", question: "Если бы ты мог(ла) изменить одно правило в своих текущих отношениях, что бы это было?" },
+        { focus: "Отношения", question: "Кто тот человек, после общения с которым ты чувствуешь себя «наполненным»?" },
+        { focus: "Отношения", question: "Какую роль ты чаще всего играешь в компании: спасатель, критик или невидимка?" },
+        { focus: "Отношения", question: "Что для тебя страшнее: быть покинутым или быть поглощенным другим человеком?" },
+        { focus: "Отношения", question: "Если бы твои отношения были погодой, то какой именно сейчас?" },
+        { focus: "Отношения", question: "Чье одобрение ты все еще пытаешься заслужить, хотя этого человека уже нет рядом?" },
+        { focus: "Отношения", question: "Какое «нет», которое ты не сказал(а) вовремя, сейчас давит на тебя?" },
+        { focus: "Отношения", question: "Что ты пытаешься «исправить» в близких, вместо того чтобы принять?" },
+        { focus: "Отношения", question: "Какое качество родителей ты больше всего боишься повторить в себе?" },
+        { focus: "Отношения", question: "О чем бы ты спросил(а) человека, с которым давно не общаешься, если бы это было безопасно?" },
+        { focus: "Отношения", question: "Если бы любовь была навыком, в чем тебе нужно потренироваться прямо сейчас?" },
+        { focus: "Отношения", question: "Насколько ты чувствуешь себя «видимым» и понятым в своем окружении?" },
+        { focus: "Отношения", question: "Какую часть своей личности ты подавляешь, чтобы не расстраивать близких?" },
+        { focus: "Отношения", question: "Что ты ищешь в других, чего не можешь дать себе сам(а)?" },
+        { focus: "Отношения", question: "Если бы твои отношения были танцем, кто ведет, а кто наступает на ноги?" },
+        { focus: "Отношения", question: "Кому ты до сих пор не можешь простить то, что он не оправдал твоих ожиданий?" },
+        { focus: "Отношения", question: "Как часто ты говоришь «я люблю» поступками, которые другой не считывает?" },
+        { focus: "Отношения", question: "Какую личную границу тебе труднее всего защищать?" },
+        { focus: "Отношения", question: "Если бы ты был(а) своим другом, что бы посоветовал(а) себе изменить в общении?" },
+        { focus: "Отношения", question: "Какое воспоминание о близости согревает тебя, когда тебе одиноко?" },
+        { focus: "Отношения", question: "В чем ты сейчас конкурируешь с теми, кого любишь?" },
+        { focus: "Отношения", question: "Что ты готов(а) отпустить в отношениях, чтобы стать свободнее?" },
+
+        // Meaning (25)
+        { focus: "Смысл", question: "Если бы ты был(а) уверен(а), что тебя поймут правильно, что бы ты сказал(а) миру?" },
+        { focus: "Смысл", question: "Какая ценность для тебя важнее: комфортная ложь или болезненная правда?" },
+        { focus: "Смысл", question: "В какой момент своей жизни ты чувствовал(а) себя максимально «на своем месте»?" },
+        { focus: "Смысл", question: "Если бы ты мог(ла) оставить после себя только одну фразу, какой бы она была?" },
+        { focus: "Смысл", question: "На что ты тратишь время, понимая, что это не приносит ни радости, ни пользы?" },
+        { focus: "Смысл", question: "Что ты считаешь своим самым большим достижением, о котором никто не знает?" },
+        { focus: "Смысл", question: "Если бы твоя жизнь была фильмом, какой жанр это был бы сейчас?" },
+        { focus: "Смысл", question: "Чему ты научился(лась) у своей самой большой боли?" },
+        { focus: "Смысл", question: "Что для тебя означает «быть свободным» прямо сейчас?" },
+        { focus: "Смысл", question: "Если бы ты проснулся(лась) без всего материального, что бы осталось твоим фундаментом?" },
+        { focus: "Смысл", question: "Что ты считаешь своим «предназначением», если убрать пафос и оставить суть?" },
+        { focus: "Смысл", question: "Какое событие разделило твою жизнь на «до» и «после»?" },
+        { focus: "Смысл", question: "Если бы ты встретил(а) Вселенную, какой один вопрос ты бы задал(а)?" },
+        { focus: "Смысл", question: "В чем ты видишь красоту в те дни, когда все идет наперекосяк?" },
+        { focus: "Смысл", question: "Какую свою «теневую» сторону ты наконец готов(а) принять?" },
+        { focus: "Смысл", question: "Если бы ты точно знал(а), что реинкарнация существует, кем бы ты вернулся(лась)?" },
+        { focus: "Смысл", question: "Что в мире вызывает у тебя праведный гнев? Это указывает на твои ценности." },
+        { focus: "Смысл", question: "Какое обещание, данное самому себе, ты нарушаешь чаще всего?" },
+        { focus: "Смысл", question: "Если бы твоя жизнь была посланием, что бы в нем было написано?" },
+        { focus: "Смысл", question: "В чем разница между тем, кем ты кажешься, и тем, кто ты есть на самом деле?" },
+        { focus: "Смысл", question: "Что для тебя означает слово «достаточно»?" },
+        { focus: "Смысл", question: "Какую свою слабость ты мог(ла) бы превратить в источник силы?" },
+        { focus: "Смысл", question: "Какой вопрос ты бы задал(а) себе самому через 10 лет?" },
+        { focus: "Смысл", question: "За что ты готов(а) сражаться, даже если останешься в одиночестве?" },
+        { focus: "Смысл", question: "Что прямо сейчас делает тебя по-настоящему живым?" },
+
+        // State (25)
+        { focus: "Состояние", question: "Какая часть твоего тела сейчас больше всего нуждается во внимании?" },
+        { focus: "Состояние", question: "Если бы твое текущее настроение было музыкой, какой это был бы инструмент?" },
+        { focus: "Состояние", question: "Что ты делаешь прямо сейчас, чтобы убежать от своих настоящих чувств?" },
+        { focus: "Состояние", question: "Когда ты в последний раз делал(а) что-то просто ради процесса, а не результата?" },
+        { focus: "Состояние", question: "Какое событие за последние сутки заставило твое сердце биться быстрее?" },
+        { focus: "Состояние", question: "От чего тебе нужно «очистить» свое пространство сегодня?" },
+        { focus: "Состояние", question: "Сколько процентов твоей энергии сейчас направлено в прошлое, а сколько — в «сейчас»?" },
+        { focus: "Состояние", question: "Что бы ты прошептал(а) себе маленькому, если бы мог(ла) его обнять?" },
+        { focus: "Состояние", question: "Что самое доброе ты сделал(а) для себя за последние три дня?" },
+        { focus: "Состояние", question: "Какую маску ты надеваешь чаще всего, выходя из дома?" },
+        { focus: "Состояние", question: "Какой ритуал заботы о себе ты постоянно откладываешь на «потом»?" },
+        { focus: "Состояние", question: "Где в твоем доме сейчас самый большой беспорядок? Это отражение состояния." },
+        { focus: "Состояние", question: "На сколько баллов из 10 ты сейчас чувствуешь связь со своим телом?" },
+        { focus: "Состояние", question: "Что ты чувствуешь, когда остаешься в полной тишине на 15 минут?" },
+        { focus: "Состояние", question: "Какое слово могло бы стать твоим личным девизом на этот месяц?" },
+        { focus: "Состояние", question: "Если бы ты мог(ла) делегировать одну свою тревогу другому, что бы это было?" },
+        { focus: "Состояние", question: "Какая привычка забирает у тебя больше всего сил?" },
+        { focus: "Состояние", question: "В какой одежде ты чувствуешь себя максимально «собой»?" },
+        { focus: "Состояние", question: "Что ты сейчас чувствуешь к человеку, который смотрит на тебя из зеркала?" },
+        { focus: "Состояние", question: "Какое место на земле дает тебе мгновенное чувство покоя?" },
+        { focus: "Состояние", question: "О чем ты думаешь в первые 60 секунд после пробуждения?" },
+        { focus: "Состояние", question: "Если бы твое тело могло говорить, какой орган сейчас кричит громче всех?" },
+        { focus: "Состояние", question: "Чего в твоей жизни сейчас слишком много, а чего — мало?" },
+        { focus: "Состояние", question: "Какое разрешение ты должен(на) дать себе прямо сегодня?" },
+        { focus: "Состояние", question: "Что ты можешь сделать прямо сейчас, чтобы твои плечи расслабились?" },
+      ];
+
+      const focusButtons = document.querySelectorAll(".focus-button");
+      const randomAllButton = document.getElementById("randomAll");
+      const questionText = document.getElementById("questionText");
+      const answerInput = document.getElementById("answerInput");
+      const saveAnswer = document.getElementById("saveAnswer");
+      const nextQuestion = document.getElementById("nextQuestion");
+      const aiCoach = document.getElementById("aiCoach");
+      const aiResponse = document.getElementById("aiResponse");
+      const aiReflection = document.getElementById("aiReflection");
+      const aiAffirmation = document.getElementById("aiAffirmation");
+      const aiColor = document.getElementById("aiColor");
+      const aiColorSwatch = document.getElementById("aiColorSwatch");
+      const aiMetaphor = document.getElementById("aiMetaphor");
+      const copyAffirmation = document.getElementById("copyAffirmation");
+      const copyStatus = document.getElementById("copyStatus");
+      const archiveList = document.getElementById("archiveList");
+      const clearArchive = document.getElementById("clearArchive");
+      const crystalCount = document.getElementById("crystalCount");
+
+      let currentFocus = null;
+      let currentQuestion = null;
+      let crystals = 0;
+
+      const I18N = {
+        en: {
+          title: "Mirror of Meanings — an honest talk with yourself",
+          "meta.description":
+            "Concept site for “Mirror of Meanings”: an honest talk with yourself through strong questions and gentle coaching.",
+          "brand.name": "Mirror of Meanings",
+          "brand.tagline": "Telegram assistant for honest answers",
+          "cta.demo": "View demo",
+          "cta.create": "Create first session",
+          "hero.title": "A conversation with yourself that brings clarity in 7 minutes.",
+          "hero.subtitle":
+            "“Mirror of Meanings” is a bot that asks one strong question, helps refine your answer, and returns your thought a week later. Gentle coaching without pressure or noise.",
+          "cta.launch": "Launch MVP",
+          "cta.storyCard": "Download story card",
+          "stat.questions": "original questions",
+          "stat.focusAreas": "focus areas",
+          "stat.dailyAnswer": "honest answer a day",
+          "demo.sessionTitle": "Session · Meaning",
+          "demo.time": "Today, 20:14",
+          "demo.pill": "Prototype",
+          "demo.ai1": "What do you want to feel at the end of this week to call it important?",
+          "demo.user1":
+            "I need to regain a sense of freedom and lightness. Right now everything feels too heavy.",
+          "demo.ai2": "What one small thing tomorrow could give you a sense of freedom?",
+          "app.title": "Mini app on the page",
+          "app.subtitle": "Choose a focus and get a strong question",
+          "app.lead": "Everything works right in the browser: questions from the library, answers saved locally.",
+          "focus.state": "State",
+          "focus.work": "Work",
+          "focus.relationships": "Relationships",
+          "focus.meaning": "Meaning",
+          "focus.randomAll": "Random from all",
+          "question.label": "Strong question",
+          "question.pickFocus": "Choose a focus to start.",
+          "answer.placeholder": "Write an honest answer here...",
+          "actions.save": "Save to archive",
+          "actions.next": "Next question",
+          "actions.aiReflection": "AI reflection",
+          "crystals.label": "clarity crystals",
+          "ai.header": "AI interpretation",
+          "actions.copyAffirmation": "Copy affirmation",
+          "ai.affirmationLabel": "Affirmation",
+          "ai.colorLabel": "Color of the day",
+          "ai.metaphorLabel": "Image",
+          "archive.title": "Archive of insights",
+          "archive.lead":
+            "Latest entries are stored in your browser. You can delete them anytime.",
+          "archive.clear": "Clear archive",
+          "archive.empty": "No entries yet.",
+          "archive.questionLabel": "Question",
+          "how.title": "How it works",
+          "how.step1.title": "1. Choose a focus",
+          "how.step1.text": "Work, relationships, state, meaning. The bot gently captures your current point.",
+          "how.step2.title": "2. Strong question",
+          "how.step2.text": "One deep question opens a door to the subconscious.",
+          "how.step3.title": "3. AI reflection",
+          "how.step3.text": "The assistant reflects and highlights patterns.",
+          "how.step4.title": "4. Archive of insights",
+          "how.step4.text": "After 7 days you return to your thought and see growth.",
+          "stories.title": "Viral cards",
+          "stories.card1.quote": "“My main priority now is freedom. I’m ready to start small.”",
+          "stories.card2.quote": "“Honesty matters to me, even when it’s uncomfortable.”",
+          "stories.card3.quote": "“I want to hear myself, not others’ expectations.”",
+          "stories.weekLabel": "Week #12",
+          "stories.reflectionLabel": "Reflection",
+          "stories.focusLabel": "Focus",
+          "monetization.title": "MVP monetization",
+          "monetization.card1.title": "Freemium",
+          "monetization.card1.text":
+            "Basic questions are free; deep categories and unlimited chat are subscription.",
+          "monetization.card2.title": "AI analytics",
+          "monetization.card2.text": "Weekly summary: “It seems your priority is freedom right now.”",
+          "monetization.card3.title": "No-code",
+          "monetization.card3.text":
+            "Built on PuzzleBot + Make + OpenAI without a dev team.",
+          "monetization.card4.title": "Growth support",
+          "monetization.card4.text": "Deep question series and personalized selections.",
+          "footer.line1": "Concept for a quick value test · 2026",
+          "footer.line2": "Available as a Telegram bot · Coming soon",
+          "errors.selectFocusFirst": "Choose a focus first to get a question.",
+          "errors.noQuestions": "Nothing found. Try changing the filter.",
+          "errors.aiFailure":
+            "Couldn't get a response. Check that the local server is running and the key is set.",
+          "ai.loading": "Listening...",
+          "copy.success": "Copied.",
+          "copy.failure": "Couldn't copy.",
+        },
+        ru: {
+          title: "Зеркало смыслов — честный разговор с собой",
+          "meta.description":
+            "Концепт сайта «Зеркало смыслов»: честный разговор с собой через сильные вопросы и мягкий коучинг.",
+          "brand.name": "Зеркало смыслов",
+          "brand.tagline": "Telegram-помощник для честных ответов",
+          "cta.demo": "Смотреть демо",
+          "cta.create": "Создать первую сессию",
+          "hero.title": "Разговор с собой, который дает ясность за 7 минут.",
+          "hero.subtitle":
+            "«Зеркало смыслов» — это бот, который задает один сильный вопрос, помогает уточнить ответ и возвращает твою мысль через неделю. Мягкий коучинг без давления и лишнего шума.",
+          "cta.launch": "Запустить MVP",
+          "cta.storyCard": "Скачать карточку в сторис",
+          "stat.questions": "авторских вопросов",
+          "stat.focusAreas": "сферы фокуса",
+          "stat.dailyAnswer": "честный ответ в день",
+          "demo.sessionTitle": "Сессия · Смысл",
+          "demo.time": "Сегодня, 20:14",
+          "demo.pill": "Прототип",
+          "demo.ai1": "Что ты хочешь почувствовать в конце этой недели, чтобы назвать ее важной?",
+          "demo.user1": "Мне нужно вернуть ощущение свободы и легкости. Сейчас все слишком тяжело.",
+          "demo.ai2": "Какая одна маленькая вещь уже завтра может дать тебе ощущение свободы?",
+          "app.title": "Мини-приложение на странице",
+          "app.subtitle": "Выбери фокус и получи сильный вопрос",
+          "app.lead": "Все работает прямо в браузере: вопросы из базы, ответы сохраняются локально.",
+          "focus.state": "Состояние",
+          "focus.work": "Работа",
+          "focus.relationships": "Отношения",
+          "focus.meaning": "Смысл",
+          "focus.randomAll": "Случайный из всех",
+          "question.label": "Сильный вопрос",
+          "question.pickFocus": "Выбери сферу, чтобы начать.",
+          "answer.placeholder": "Напиши здесь честный ответ...",
+          "actions.save": "Сохранить в архив",
+          "actions.next": "Следующий вопрос",
+          "actions.aiReflection": "ИИ‑отражение",
+          "crystals.label": "кристаллов ясности",
+          "ai.header": "Интерпретация от ИИ",
+          "actions.copyAffirmation": "Скопировать аффирмацию",
+          "ai.affirmationLabel": "Аффирмация",
+          "ai.colorLabel": "Цвет дня",
+          "ai.metaphorLabel": "Образ",
+          "archive.title": "Архив откровений",
+          "archive.lead": "Последние записи хранятся в браузере. Можно удалить в любой момент.",
+          "archive.clear": "Очистить архив",
+          "archive.empty": "Пока нет записей.",
+          "archive.questionLabel": "Вопрос",
+          "how.title": "Как это работает",
+          "how.step1.title": "1. Выбор фокуса",
+          "how.step1.text": "Работа, отношения, состояние, смысл. Бот мягко фиксирует текущую точку.",
+          "how.step2.title": "2. Сильный вопрос",
+          "how.step2.text": "Один глубокий вопрос открывает дверь в подсознание.",
+          "how.step3.title": "3. ИИ-уточнение",
+          "how.step3.text": "Ассистент помогает докопаться до сути или подсвечивает паттерны.",
+          "how.step4.title": "4. Архив откровений",
+          "how.step4.text": "Через 7 дней ты возвращаешься к своей мысли и видишь рост.",
+          "stories.title": "Виральные карточки",
+          "stories.card1.quote": "«Мой главный приоритет сейчас — свобода. Я готова начать с малого.»",
+          "stories.card2.quote": "«Мне важна честность, даже если она неудобна.»",
+          "stories.card3.quote": "«Я хочу слышать себя, а не ожидания других.»",
+          "stories.weekLabel": "Неделя #12",
+          "stories.reflectionLabel": "Рефлексия",
+          "stories.focusLabel": "Сфера",
+          "monetization.title": "Монетизация MVP",
+          "monetization.card1.title": "Freemium",
+          "monetization.card1.text":
+            "Базовые вопросы бесплатны, глубинные категории и безлимитный чат — по подписке.",
+          "monetization.card2.title": "AI-аналитика",
+          "monetization.card2.text": "Резюме недели: «Похоже, сейчас твой приоритет — свобода».",
+          "monetization.card3.title": "Без кода",
+          "monetization.card3.text": "Сборка на PuzzleBot + Make + OpenAI без команды разработчиков.",
+          "monetization.card4.title": "Поддержка роста",
+          "monetization.card4.text": "Глубокие серии вопросов и персональные подборки.",
+          "footer.line1": "Концепт для быстрого теста ценности · 2026",
+          "footer.line2": "Доступно как Telegram-бот · Coming soon",
+          "errors.selectFocusFirst": "Сначала выбери сферу, чтобы получить вопрос.",
+          "errors.noQuestions": "Ничего не найдено. Попробуй изменить фильтр или поиск.",
+          "errors.aiFailure":
+            "Не удалось получить ответ. Проверь, что запущен локальный сервер и ключ установлен.",
+          "ai.loading": "Слушаю...",
+          "copy.success": "Скопировано.",
+          "copy.failure": "Не удалось скопировать.",
+        },
+        fi: {
+          title: "Merkitysten peili — rehellinen keskustelu itsesi kanssa",
+          "meta.description":
+            "Konseptisivu “Merkitysten peili”: rehellinen keskustelu itsesi kanssa vahvojen kysymysten ja lempeän tuen kautta.",
+          "brand.name": "Merkitysten peili",
+          "brand.tagline": "Telegram-avustaja rehellisiin vastauksiin",
+          "cta.demo": "Katso demo",
+          "cta.create": "Luo ensimmäinen sessio",
+          "hero.title": "Keskustelu itsesi kanssa, joka tuo selkeyttä 7 minuutissa.",
+          "hero.subtitle":
+            "“Merkitysten peili” on botti, joka esittää yhden vahvan kysymyksen, auttaa kirkastamaan vastauksen ja palauttaa ajatuksesi viikon päästä. Lempeä tuki ilman painetta tai melua.",
+          "cta.launch": "Käynnistä MVP",
+          "cta.storyCard": "Lataa tarinakortti",
+          "stat.questions": "omaperäistä kysymystä",
+          "stat.focusAreas": "fokusaluetta",
+          "stat.dailyAnswer": "rehellinen vastaus päivässä",
+          "demo.sessionTitle": "Sessio · Merkitys",
+          "demo.time": "Tänään, 20:14",
+          "demo.pill": "Prototyyppi",
+          "demo.ai1": "Mitä haluat tuntea tämän viikon lopussa, jotta se olisi merkityksellinen?",
+          "demo.user1": "Tarvitsen takaisin vapauden ja keveyden tunteen. Nyt kaikki on liian raskasta.",
+          "demo.ai2": "Mikä yksi pieni asia huomenna voisi antaa sinulle vapauden tunnetta?",
+          "app.title": "Minisovellus sivulla",
+          "app.subtitle": "Valitse fokus ja saat vahvan kysymyksen",
+          "app.lead": "Kaikki toimii suoraan selaimessa: kysymykset tietokannasta, vastaukset tallentuvat paikallisesti.",
+          "focus.state": "Tila",
+          "focus.work": "Työ",
+          "focus.relationships": "Suhteet",
+          "focus.meaning": "Merkitys",
+          "focus.randomAll": "Satunnainen kaikista",
+          "question.label": "Vahva kysymys",
+          "question.pickFocus": "Valitse fokus aloittaaksesi.",
+          "answer.placeholder": "Kirjoita rehellinen vastauksesi tähän...",
+          "actions.save": "Tallenna arkistoon",
+          "actions.next": "Seuraava kysymys",
+          "actions.aiReflection": "AI-heijastus",
+          "crystals.label": "selkeyden kristallia",
+          "ai.header": "AI-tulkinta",
+          "actions.copyAffirmation": "Kopioi affirmaatio",
+          "ai.affirmationLabel": "Affirmaatio",
+          "ai.colorLabel": "Päivän väri",
+          "ai.metaphorLabel": "Kuva",
+          "archive.title": "Oivallusten arkisto",
+          "archive.lead":
+            "Viimeisimmät merkinnät tallentuvat selaimeen. Voit poistaa ne milloin tahansa.",
+          "archive.clear": "Tyhjennä arkisto",
+          "archive.empty": "Ei merkintöjä vielä.",
+          "archive.questionLabel": "Kysymys",
+          "how.title": "Miten se toimii",
+          "how.step1.title": "1. Valitse fokus",
+          "how.step1.text": "Työ, suhteet, tila, merkitys. Botti kirjaa nykyisen pisteen lempeästi.",
+          "how.step2.title": "2. Vahva kysymys",
+          "how.step2.text": "Yksi syvä kysymys avaa oven alitajuntaan.",
+          "how.step3.title": "3. AI-heijastus",
+          "how.step3.text": "Avustaja heijastaa ja nostaa esiin kuvioita.",
+          "how.step4.title": "4. Oivallusten arkisto",
+          "how.step4.text": "7 päivän kuluttua palaat ajatukseesi ja näet kasvun.",
+          "stories.title": "Viraalikortit",
+          "stories.card1.quote": "“Pääprioriteettini nyt on vapaus. Olen valmis aloittamaan pienestä.”",
+          "stories.card2.quote": "“Rehellisyys on minulle tärkeää, vaikka se olisi epämukavaa.”",
+          "stories.card3.quote": "“Haluan kuulla itseäni, en muiden odotuksia.”",
+          "stories.weekLabel": "Viikko #12",
+          "stories.reflectionLabel": "Reflektio",
+          "stories.focusLabel": "Fokus",
+          "monetization.title": "MVP:n ansainta",
+          "monetization.card1.title": "Freemium",
+          "monetization.card1.text":
+            "Peruskysymykset ilmaisia; syvät kategoriat ja rajaton chat tilauksella.",
+          "monetization.card2.title": "AI-analytiikka",
+          "monetization.card2.text":
+            "Viikkoyhteenveto: “Näyttää siltä, että prioriteettisi on nyt vapaus.”",
+          "monetization.card3.title": "No-code",
+          "monetization.card3.text":
+            "Rakennettu PuzzleBot + Make + OpenAI ilman kehittäjätiimiä.",
+          "monetization.card4.title": "Kasvun tuki",
+          "monetization.card4.text": "Syvät kysymyssarjat ja henkilökohtaiset valinnat.",
+          "footer.line1": "Konsepti nopeaan arvotestin tekemiseen · 2026",
+          "footer.line2": "Saatavilla Telegram-bottina · Tulossa pian",
+          "errors.selectFocusFirst": "Valitse ensin fokus saadaksesi kysymyksen.",
+          "errors.noQuestions": "Mitään ei löytynyt. Kokeile vaihtaa suodatinta.",
+          "errors.aiFailure":
+            "Vastausta ei saatu. Tarkista, että paikallinen palvelin on käynnissä ja avain on asetettu.",
+          "ai.loading": "Kuuntelen...",
+          "copy.success": "Kopioitu.",
+          "copy.failure": "Kopiointi epäonnistui.",
+        },
+      };
+
+      const langButtons = document.querySelectorAll(".lang-button");
+      const metaDescription = document.querySelector('meta[name="description"]');
+      let currentLang = "en";
+
+      function t(key) {
+        return I18N[currentLang]?.[key] ?? I18N.en?.[key] ?? key;
+      }
+
+      function applyTranslations(lang) {
+        currentLang = lang;
+        document.documentElement.lang = lang;
+        document.title = t("title");
+        if (metaDescription) {
+          metaDescription.setAttribute("content", t("meta.description"));
+        }
+        document.querySelectorAll("[data-i18n]").forEach((el) => {
+          el.textContent = t(el.dataset.i18n);
+        });
+        document.querySelectorAll("[data-i18n-placeholder]").forEach((el) => {
+          el.setAttribute("placeholder", t(el.dataset.i18nPlaceholder));
+        });
+        if (!currentQuestion) {
+          questionText.textContent = t("question.pickFocus");
+        }
+        langButtons.forEach((button) => {
+          button.classList.toggle("is-active", button.dataset.lang === lang);
+        });
+      }
+
+      function setLanguage(lang) {
+        localStorage.setItem("mirrorLang", lang);
+        applyTranslations(lang);
+      }
+
+      const savedLang = localStorage.getItem("mirrorLang");
+      setLanguage(savedLang || "en");
+
+      langButtons.forEach((button) => {
+        button.addEventListener("click", () => setLanguage(button.dataset.lang));
+      });
+
+      function getArchive() {
+        try {
+          return JSON.parse(localStorage.getItem("mirrorArchive") || "[]");
+        } catch {
+          return [];
+        }
+      }
+
+      function setArchive(items) {
+        localStorage.setItem("mirrorArchive", JSON.stringify(items));
+      }
+
+      function getCrystals() {
+        const raw = Number(localStorage.getItem("mirrorCrystals") || 0);
+        return Number.isNaN(raw) ? 0 : raw;
+      }
+
+      function setCrystals(value) {
+        crystals = Math.max(0, value);
+        localStorage.setItem("mirrorCrystals", String(crystals));
+        crystalCount.textContent = String(crystals);
+      }
+
+      function renderArchive() {
+        const items = getArchive();
+        archiveList.innerHTML = "";
+        if (!items.length) {
+          archiveList.innerHTML = `<div style='color: rgba(255,255,255,0.5)'>${t("archive.empty")}</div>`;
+          return;
+        }
+        items.slice(0, 5).forEach((item) => {
+          const card = document.createElement("div");
+          card.className = "story-card";
+          card.innerHTML = `
+            <div class="title">${item.focus}</div>
+            <div class="quote">«${item.answer}»</div>
+            <div class="stat">${t("archive.questionLabel")} · <span>${item.question}</span></div>
+          `;
+          archiveList.appendChild(card);
+        });
+      }
+
+      function getFilteredPool() {
+        let pool = QUESTIONS;
+        if (currentFocus && currentFocus !== "Все") {
+          pool = pool.filter((q) => q.focus === currentFocus);
+        }
+        return pool;
+      }
+
+      function pickQuestion() {
+        if (!currentFocus) return;
+        const pool = getFilteredPool();
+        if (!pool.length) {
+          questionText.textContent = t("errors.noQuestions");
+          currentQuestion = null;
+          return;
+        }
+        currentQuestion = pool[Math.floor(Math.random() * pool.length)];
+        questionText.textContent = currentQuestion.question;
+      }
+
+      focusButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          currentFocus = button.dataset.focus;
+          focusButtons.forEach((b) => b.classList.remove("is-pressed"));
+          pickQuestion();
+          answerInput.focus();
+        });
+      });
+
+      randomAllButton.addEventListener("click", () => {
+        currentFocus = "Все";
+        focusButtons.forEach((b) => b.classList.remove("is-pressed"));
+        pickQuestion();
+      });
+
+      nextQuestion.addEventListener("click", () => {
+        pickQuestion();
+      });
+
+      saveAnswer.addEventListener("click", () => {
+        if (!currentQuestion) {
+          questionText.textContent = t("errors.selectFocusFirst");
+          return;
+        }
+        const answer = answerInput.value.trim();
+        if (!answer) {
+          answerInput.focus();
+          return;
+        }
+        const archive = getArchive();
+        archive.unshift({
+          focus: currentFocus,
+          question: currentQuestion.question,
+          answer,
+          createdAt: new Date().toISOString(),
+        });
+        setArchive(archive);
+        setCrystals(crystals + 1);
+        answerInput.value = "";
+        renderArchive();
+      });
+
+      aiCoach.addEventListener("click", async () => {
+        if (!currentQuestion) {
+          questionText.textContent = t("errors.selectFocusFirst");
+          return;
+        }
+        const answer = answerInput.value.trim();
+        if (!answer) {
+          answerInput.focus();
+          return;
+        }
+        aiResponse.style.display = "block";
+        aiReflection.textContent = t("ai.loading");
+        aiAffirmation.textContent = "";
+        aiColor.textContent = "";
+        aiColorSwatch.style.background = "#7edbb2";
+        aiMetaphor.textContent = "";
+        copyStatus.textContent = "";
+        try {
+          const response = await fetch("/api/coach", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              focus: currentFocus,
+              question: currentQuestion.question,
+              answer,
+            }),
+          });
+          const data = await response.json();
+          if (!response.ok) {
+            throw new Error(data?.error || "Ошибка запроса");
+          }
+          aiReflection.textContent = data?.interpretation || data?.text || "Спасибо за ответ.";
+          aiAffirmation.textContent = data?.affirmation || "Моя тишина — моя сила.";
+          aiColor.textContent = data?.color_hex || "#7edbb2";
+          const colorMatch = String(data?.color_hex || "").match(/#([0-9a-fA-F]{3,8})/);
+          if (colorMatch) {
+            aiColorSwatch.style.background = `#${colorMatch[1]}`;
+          }
+          aiMetaphor.textContent = data?.metaphor || "Океан в шторм, затихающий к рассвету.";
+        } catch (error) {
+          aiReflection.textContent = t("errors.aiFailure");
+          aiAffirmation.textContent = "";
+          aiColor.textContent = "";
+          aiColorSwatch.style.background = "#7edbb2";
+          aiMetaphor.textContent = "";
+        }
+      });
+
+      copyAffirmation.addEventListener("click", async () => {
+        const text = aiAffirmation.textContent.trim();
+        if (!text) return;
+        try {
+          await navigator.clipboard.writeText(text);
+          copyStatus.textContent = t("copy.success");
+        } catch {
+          copyStatus.textContent = t("copy.failure");
+        }
+        window.setTimeout(() => {
+          copyStatus.textContent = "";
+        }, 1400);
+      });
+
+      clearArchive.addEventListener("click", () => {
+        setArchive([]);
+        renderArchive();
+      });
+
+      setCrystals(getCrystals());
+      renderArchive();
+    </script>
+  </body>
+</html>
