@@ -516,10 +516,10 @@
             <h3 data-i18n="app.subtitle">Выбери фокус и получи сильный вопрос</h3>
             <p data-i18n="app.lead">Все работает прямо в браузере: вопросы из базы, ответы сохраняются локально.</p>
             <div class="cta-row" style="margin: 18px 0;">
-              <button class="button secondary focus-button" data-focus="Состояние" data-i18n="focus.state" type="button">Состояние</button>
-              <button class="button secondary focus-button" data-focus="Работа" data-i18n="focus.work" type="button">Работа</button>
-              <button class="button secondary focus-button" data-focus="Отношения" data-i18n="focus.relationships" type="button">Отношения</button>
-              <button class="button secondary focus-button" data-focus="Смысл" data-i18n="focus.meaning" type="button">Смысл</button>
+              <button class="button secondary focus-button" data-focus="state" data-i18n="focus.state" type="button">Состояние</button>
+              <button class="button secondary focus-button" data-focus="work" data-i18n="focus.work" type="button">Работа</button>
+              <button class="button secondary focus-button" data-focus="relationships" data-i18n="focus.relationships" type="button">Отношения</button>
+              <button class="button secondary focus-button" data-focus="meaning" data-i18n="focus.meaning" type="button">Смысл</button>
               <button class="button secondary" id="randomAll" data-i18n="focus.randomAll" type="button">Случайный из всех</button>
             </div>
             <div class="glass" style="padding: 18px;">
@@ -690,115 +690,335 @@
 
       document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
 
-      const QUESTIONS = [
-        // Work (25)
-        { focus: "Работа", question: "Какое дело сегодня принесло тебе энергию, а какое — выпило ее до дна?" },
-        { focus: "Работа", question: "Если бы твоя должность называлась «Миссия», как бы она звучала?" },
-        { focus: "Работа", question: "Что ты продолжаешь делать только потому, что «уже поздно что-то менять»?" },
-        { focus: "Работа", question: "В чем твоя уникальная «суперсила», которую ты боишься проявлять?" },
-        { focus: "Работа", question: "Если бы тебе разрешили работать всего 2 часа в неделю, на что бы ты их потратил(а)?" },
-        { focus: "Работа", question: "Кто в твоем окружении заставляет тебя чувствовать себя маленьким и некомпетентным?" },
-        { focus: "Работа", question: "Какую одну вещь в своей работе ты бы изменил(а) сегодня, если бы не боялся осуждения?" },
-        { focus: "Работа", question: "Ты сейчас бежишь к цели или от проблемы?" },
-        { focus: "Работа", question: "Что самое смелое ты сделал(а) на этой неделе в профессиональном плане?" },
-        { focus: "Работа", question: "Какой совет ты бы дал(а) самому себе в первый день на этой работе?" },
-        { focus: "Работа", question: "Какой проект ты бы начал(а) завтра, если бы у тебя был безусловный доход?" },
-        { focus: "Работа", question: "Если бы твоя карьера была деревом, оно сейчас цветет, дает плоды или сохнет?" },
-        { focus: "Работа", question: "Что ты терпишь на работе только ради того, чтобы не казаться «неудачником»?" },
-        { focus: "Работа", question: "Какая профессиональная мечта кажется тебе слишком «дерзкой», чтобы произнести ее вслух?" },
-        { focus: "Работа", question: "Если бы ты нанял(а) себя как сотрудника, за что бы уволил(а) в первую очередь?" },
-        { focus: "Работа", question: "В какой момент работы ты в последний раз чувствовал(а) состояние «потока»?" },
-        { focus: "Работа", question: "Что ты делаешь на работе «автоматически», давно перестав вкладывать смысл?" },
-        { focus: "Работа", question: "Если бы твоя работа была вкладом в будущее, что бы ты хотел(а) оставить после себя?" },
-        { focus: "Работа", question: "Какое твое умение люди недооценивают, потому что ты сам(а) его не ценишь?" },
-        { focus: "Работа", question: "Чьему профессиональному пути ты завидуешь и что именно в нем тебя цепляет?" },
-        { focus: "Работа", question: "Какой конфликт на работе ты избегаешь, хотя он мог бы все прояснить?" },
-        { focus: "Работа", question: "Если бы ты мог(ла) изменить одну черту своего начальника, что бы это было?" },
-        { focus: "Работа", question: "Какую цену ты на самом деле платишь за свой текущий уровень дохода?" },
-        { focus: "Работа", question: "Что ты считаешь своей «зоной гениальности», где тебе нет равных?" },
-        { focus: "Работа", question: "Какое одно маленькое действие завтра сделает твой рабочий день на 10% осмысленнее?" },
+      const QUESTIONS_BY_LANG = {
+        en: [
+          // Work (25)
+          { focus: "work", question: "What task gave you energy today, and which one drained you to the bottom?" },
+          { focus: "work", question: "If your job title were called a “Mission,” what would it be?" },
+          { focus: "work", question: "What do you keep doing only because “it’s too late to change”?" },
+          { focus: "work", question: "What is your unique “superpower” that you’re afraid to show?" },
+          { focus: "work", question: "If you were allowed to work only 2 hours a week, what would you spend them on?" },
+          { focus: "work", question: "Who around you makes you feel small and incompetent?" },
+          { focus: "work", question: "What one thing in your work would you change today if you weren’t afraid of judgment?" },
+          { focus: "work", question: "Are you running toward a goal or away from a problem right now?" },
+          { focus: "work", question: "What is the bravest thing you did professionally this week?" },
+          { focus: "work", question: "What advice would you give yourself on your first day at this job?" },
+          { focus: "work", question: "What project would you start tomorrow if you had unconditional income?" },
+          { focus: "work", question: "If your career were a tree, is it blooming, bearing fruit, or drying out?" },
+          { focus: "work", question: "What do you tolerate at work just so you don’t look like a “loser”?" },
+          { focus: "work", question: "Which professional dream feels too “bold” to say out loud?" },
+          { focus: "work", question: "If you hired yourself as an employee, what would you fire yourself for first?" },
+          { focus: "work", question: "At what moment at work did you last feel “flow”?" },
+          { focus: "work", question: "What do you do at work automatically, long since stopped putting meaning into it?" },
+          { focus: "work", question: "If your work were a contribution to the future, what would you want to leave behind?" },
+          { focus: "work", question: "Which of your skills do people undervalue because you don’t value it yourself?" },
+          { focus: "work", question: "Whose professional path do you envy and what exactly about it hooks you?" },
+          { focus: "work", question: "What conflict at work are you avoiding, though it could clarify everything?" },
+          { focus: "work", question: "If you could change one trait of your boss, what would it be?" },
+          { focus: "work", question: "What price are you really paying for your current income level?" },
+          { focus: "work", question: "What do you consider your “zone of genius” where you have no equal?" },
+          { focus: "work", question: "What one small action tomorrow would make your workday 10% more meaningful?" },
 
-        // Relationships (25)
-        { focus: "Отношения", question: "Кого в своей жизни ты любишь «за что-то», а кого — вопреки всему?" },
-        { focus: "Отношения", question: "О чем ты молчишь в разговоре с близким человеком, чтобы не разрушить хрупкий мир?" },
-        { focus: "Отношения", question: "Какую черту в других людях ты ненавидишь больше всего?" },
-        { focus: "Отношения", question: "Если бы ты мог(ла) изменить одно правило в своих текущих отношениях, что бы это было?" },
-        { focus: "Отношения", question: "Кто тот человек, после общения с которым ты чувствуешь себя «наполненным»?" },
-        { focus: "Отношения", question: "Какую роль ты чаще всего играешь в компании: спасатель, критик или невидимка?" },
-        { focus: "Отношения", question: "Что для тебя страшнее: быть покинутым или быть поглощенным другим человеком?" },
-        { focus: "Отношения", question: "Если бы твои отношения были погодой, то какой именно сейчас?" },
-        { focus: "Отношения", question: "Чье одобрение ты все еще пытаешься заслужить, хотя этого человека уже нет рядом?" },
-        { focus: "Отношения", question: "Какое «нет», которое ты не сказал(а) вовремя, сейчас давит на тебя?" },
-        { focus: "Отношения", question: "Что ты пытаешься «исправить» в близких, вместо того чтобы принять?" },
-        { focus: "Отношения", question: "Какое качество родителей ты больше всего боишься повторить в себе?" },
-        { focus: "Отношения", question: "О чем бы ты спросил(а) человека, с которым давно не общаешься, если бы это было безопасно?" },
-        { focus: "Отношения", question: "Если бы любовь была навыком, в чем тебе нужно потренироваться прямо сейчас?" },
-        { focus: "Отношения", question: "Насколько ты чувствуешь себя «видимым» и понятым в своем окружении?" },
-        { focus: "Отношения", question: "Какую часть своей личности ты подавляешь, чтобы не расстраивать близких?" },
-        { focus: "Отношения", question: "Что ты ищешь в других, чего не можешь дать себе сам(а)?" },
-        { focus: "Отношения", question: "Если бы твои отношения были танцем, кто ведет, а кто наступает на ноги?" },
-        { focus: "Отношения", question: "Кому ты до сих пор не можешь простить то, что он не оправдал твоих ожиданий?" },
-        { focus: "Отношения", question: "Как часто ты говоришь «я люблю» поступками, которые другой не считывает?" },
-        { focus: "Отношения", question: "Какую личную границу тебе труднее всего защищать?" },
-        { focus: "Отношения", question: "Если бы ты был(а) своим другом, что бы посоветовал(а) себе изменить в общении?" },
-        { focus: "Отношения", question: "Какое воспоминание о близости согревает тебя, когда тебе одиноко?" },
-        { focus: "Отношения", question: "В чем ты сейчас конкурируешь с теми, кого любишь?" },
-        { focus: "Отношения", question: "Что ты готов(а) отпустить в отношениях, чтобы стать свободнее?" },
+          // Relationships (25)
+          { focus: "relationships", question: "Who in your life do you love “for something,” and who do you love despite everything?" },
+          { focus: "relationships", question: "What do you stay silent about with a close person so as not to break the fragile peace?" },
+          { focus: "relationships", question: "Which trait in other people do you hate the most?" },
+          { focus: "relationships", question: "If you could change one rule in your current relationships, what would it be?" },
+          { focus: "relationships", question: "Who is the person after talking with whom you feel “filled”?" },
+          { focus: "relationships", question: "Which role do you most often play in a group: rescuer, critic, or invisible?" },
+          { focus: "relationships", question: "What is scarier for you: being abandoned or being engulfed by another person?" },
+          { focus: "relationships", question: "If your relationship were weather, what is it right now?" },
+          { focus: "relationships", question: "Whose approval are you still trying to earn even though that person isn’t around anymore?" },
+          { focus: "relationships", question: "Which “no” that you didn’t say in time is weighing on you now?" },
+          { focus: "relationships", question: "What are you trying to “fix” in loved ones instead of accepting?" },
+          { focus: "relationships", question: "Which quality of your parents are you most afraid of repeating in yourself?" },
+          { focus: "relationships", question: "What would you ask someone you haven’t talked to in a long time if it were safe?" },
+          { focus: "relationships", question: "If love were a skill, what do you need to practice right now?" },
+          { focus: "relationships", question: "How seen and understood do you feel in your circle?" },
+          { focus: "relationships", question: "Which part of your personality do you suppress so as not to upset loved ones?" },
+          { focus: "relationships", question: "What do you look for in others that you can’t give yourself?" },
+          { focus: "relationships", question: "If your relationship were a dance, who leads and who steps on toes?" },
+          { focus: "relationships", question: "Who still can’t you forgive for not meeting your expectations?" },
+          { focus: "relationships", question: "How often do you say “I love you” with actions the other doesn’t read?" },
+          { focus: "relationships", question: "Which personal boundary is hardest for you to defend?" },
+          { focus: "relationships", question: "If you were your friend, what would you advise yourself to change in communication?" },
+          { focus: "relationships", question: "What memory of closeness warms you when you are lonely?" },
+          { focus: "relationships", question: "In what way are you competing with those you love?" },
+          { focus: "relationships", question: "What are you ready to let go of in relationships to feel freer?" },
 
-        // Meaning (25)
-        { focus: "Смысл", question: "Если бы ты был(а) уверен(а), что тебя поймут правильно, что бы ты сказал(а) миру?" },
-        { focus: "Смысл", question: "Какая ценность для тебя важнее: комфортная ложь или болезненная правда?" },
-        { focus: "Смысл", question: "В какой момент своей жизни ты чувствовал(а) себя максимально «на своем месте»?" },
-        { focus: "Смысл", question: "Если бы ты мог(ла) оставить после себя только одну фразу, какой бы она была?" },
-        { focus: "Смысл", question: "На что ты тратишь время, понимая, что это не приносит ни радости, ни пользы?" },
-        { focus: "Смысл", question: "Что ты считаешь своим самым большим достижением, о котором никто не знает?" },
-        { focus: "Смысл", question: "Если бы твоя жизнь была фильмом, какой жанр это был бы сейчас?" },
-        { focus: "Смысл", question: "Чему ты научился(лась) у своей самой большой боли?" },
-        { focus: "Смысл", question: "Что для тебя означает «быть свободным» прямо сейчас?" },
-        { focus: "Смысл", question: "Если бы ты проснулся(лась) без всего материального, что бы осталось твоим фундаментом?" },
-        { focus: "Смысл", question: "Что ты считаешь своим «предназначением», если убрать пафос и оставить суть?" },
-        { focus: "Смысл", question: "Какое событие разделило твою жизнь на «до» и «после»?" },
-        { focus: "Смысл", question: "Если бы ты встретил(а) Вселенную, какой один вопрос ты бы задал(а)?" },
-        { focus: "Смысл", question: "В чем ты видишь красоту в те дни, когда все идет наперекосяк?" },
-        { focus: "Смысл", question: "Какую свою «теневую» сторону ты наконец готов(а) принять?" },
-        { focus: "Смысл", question: "Если бы ты точно знал(а), что реинкарнация существует, кем бы ты вернулся(лась)?" },
-        { focus: "Смысл", question: "Что в мире вызывает у тебя праведный гнев? Это указывает на твои ценности." },
-        { focus: "Смысл", question: "Какое обещание, данное самому себе, ты нарушаешь чаще всего?" },
-        { focus: "Смысл", question: "Если бы твоя жизнь была посланием, что бы в нем было написано?" },
-        { focus: "Смысл", question: "В чем разница между тем, кем ты кажешься, и тем, кто ты есть на самом деле?" },
-        { focus: "Смысл", question: "Что для тебя означает слово «достаточно»?" },
-        { focus: "Смысл", question: "Какую свою слабость ты мог(ла) бы превратить в источник силы?" },
-        { focus: "Смысл", question: "Какой вопрос ты бы задал(а) себе самому через 10 лет?" },
-        { focus: "Смысл", question: "За что ты готов(а) сражаться, даже если останешься в одиночестве?" },
-        { focus: "Смысл", question: "Что прямо сейчас делает тебя по-настоящему живым?" },
+          // Meaning (25)
+          { focus: "meaning", question: "If you were sure you’d be understood correctly, what would you say to the world?" },
+          { focus: "meaning", question: "Which value is more important to you: a comfortable lie or a painful truth?" },
+          { focus: "meaning", question: "At what moment in your life did you feel most “in your place”?" },
+          { focus: "meaning", question: "If you could leave only one sentence behind, what would it be?" },
+          { focus: "meaning", question: "What do you spend time on, knowing it brings neither joy nor benefit?" },
+          { focus: "meaning", question: "What do you consider your biggest achievement that nobody knows about?" },
+          { focus: "meaning", question: "If your life were a film, what genre would it be right now?" },
+          { focus: "meaning", question: "What did you learn from your biggest pain?" },
+          { focus: "meaning", question: "What does “being free” mean to you right now?" },
+          { focus: "meaning", question: "If you woke up without anything material, what would remain your foundation?" },
+          { focus: "meaning", question: "What do you consider your “purpose” if you remove the pathos and leave the essence?" },
+          { focus: "meaning", question: "Which event split your life into “before” and “after”?" },
+          { focus: "meaning", question: "If you met the Universe, what one question would you ask?" },
+          { focus: "meaning", question: "Where do you see beauty on days when everything goes wrong?" },
+          { focus: "meaning", question: "Which of your “shadow” sides are you finally ready to accept?" },
+          { focus: "meaning", question: "If you knew reincarnation exists, who would you come back as?" },
+          { focus: "meaning", question: "What in the world sparks righteous anger in you? It points to your values." },
+          { focus: "meaning", question: "Which promise to yourself do you break most often?" },
+          { focus: "meaning", question: "If your life were a message, what would it say?" },
+          { focus: "meaning", question: "What is the difference between who you seem to be and who you really are?" },
+          { focus: "meaning", question: "What does the word “enough” mean to you?" },
+          { focus: "meaning", question: "Which of your weaknesses could you turn into a source of strength?" },
+          { focus: "meaning", question: "What question would you ask yourself ten years from now?" },
+          { focus: "meaning", question: "What are you willing to fight for even if you end up alone?" },
+          { focus: "meaning", question: "What right now makes you feel truly alive?" },
 
-        // State (25)
-        { focus: "Состояние", question: "Какая часть твоего тела сейчас больше всего нуждается во внимании?" },
-        { focus: "Состояние", question: "Если бы твое текущее настроение было музыкой, какой это был бы инструмент?" },
-        { focus: "Состояние", question: "Что ты делаешь прямо сейчас, чтобы убежать от своих настоящих чувств?" },
-        { focus: "Состояние", question: "Когда ты в последний раз делал(а) что-то просто ради процесса, а не результата?" },
-        { focus: "Состояние", question: "Какое событие за последние сутки заставило твое сердце биться быстрее?" },
-        { focus: "Состояние", question: "От чего тебе нужно «очистить» свое пространство сегодня?" },
-        { focus: "Состояние", question: "Сколько процентов твоей энергии сейчас направлено в прошлое, а сколько — в «сейчас»?" },
-        { focus: "Состояние", question: "Что бы ты прошептал(а) себе маленькому, если бы мог(ла) его обнять?" },
-        { focus: "Состояние", question: "Что самое доброе ты сделал(а) для себя за последние три дня?" },
-        { focus: "Состояние", question: "Какую маску ты надеваешь чаще всего, выходя из дома?" },
-        { focus: "Состояние", question: "Какой ритуал заботы о себе ты постоянно откладываешь на «потом»?" },
-        { focus: "Состояние", question: "Где в твоем доме сейчас самый большой беспорядок? Это отражение состояния." },
-        { focus: "Состояние", question: "На сколько баллов из 10 ты сейчас чувствуешь связь со своим телом?" },
-        { focus: "Состояние", question: "Что ты чувствуешь, когда остаешься в полной тишине на 15 минут?" },
-        { focus: "Состояние", question: "Какое слово могло бы стать твоим личным девизом на этот месяц?" },
-        { focus: "Состояние", question: "Если бы ты мог(ла) делегировать одну свою тревогу другому, что бы это было?" },
-        { focus: "Состояние", question: "Какая привычка забирает у тебя больше всего сил?" },
-        { focus: "Состояние", question: "В какой одежде ты чувствуешь себя максимально «собой»?" },
-        { focus: "Состояние", question: "Что ты сейчас чувствуешь к человеку, который смотрит на тебя из зеркала?" },
-        { focus: "Состояние", question: "Какое место на земле дает тебе мгновенное чувство покоя?" },
-        { focus: "Состояние", question: "О чем ты думаешь в первые 60 секунд после пробуждения?" },
-        { focus: "Состояние", question: "Если бы твое тело могло говорить, какой орган сейчас кричит громче всех?" },
-        { focus: "Состояние", question: "Чего в твоей жизни сейчас слишком много, а чего — мало?" },
-        { focus: "Состояние", question: "Какое разрешение ты должен(на) дать себе прямо сегодня?" },
-        { focus: "Состояние", question: "Что ты можешь сделать прямо сейчас, чтобы твои плечи расслабились?" },
-      ];
+          // State (25)
+          { focus: "state", question: "Which part of your body needs attention the most right now?" },
+          { focus: "state", question: "If your current mood were music, what instrument would it be?" },
+          { focus: "state", question: "What are you doing right now to run away from your true feelings?" },
+          { focus: "state", question: "When was the last time you did something just for the process, not the result?" },
+          { focus: "state", question: "What event in the last 24 hours made your heart beat faster?" },
+          { focus: "state", question: "What do you need to “cleanse” your space of today?" },
+          { focus: "state", question: "What percentage of your energy is pointed to the past, and how much to the present?" },
+          { focus: "state", question: "What would you whisper to your younger self if you could hug them?" },
+          { focus: "state", question: "What is the kindest thing you did for yourself in the last three days?" },
+          { focus: "state", question: "Which mask do you put on most often when you leave the house?" },
+          { focus: "state", question: "Which self-care ritual do you keep postponing?" },
+          { focus: "state", question: "Where in your home is the biggest mess right now? It’s a reflection of your state." },
+          { focus: "state", question: "On a scale of 1 to 10, how connected do you feel to your body right now?" },
+          { focus: "state", question: "What do you feel when you sit in complete silence for 15 minutes?" },
+          { focus: "state", question: "What word could become your personal motto for this month?" },
+          { focus: "state", question: "If you could delegate one of your anxieties to someone else, what would it be?" },
+          { focus: "state", question: "Which habit drains the most energy from you?" },
+          { focus: "state", question: "In what clothes do you feel most yourself?" },
+          { focus: "state", question: "What do you feel right now toward the person who looks at you from the mirror?" },
+          { focus: "state", question: "Which place on earth gives you an instant sense of calm?" },
+          { focus: "state", question: "What do you think about in the first 60 seconds after waking up?" },
+          { focus: "state", question: "If your body could speak, which organ is screaming the loudest?" },
+          { focus: "state", question: "What is there too much of in your life right now, and too little of?" },
+          { focus: "state", question: "What permission do you need to give yourself today?" },
+          { focus: "state", question: "What can you do right now to let your shoulders relax?" },
+        ],
+        ru: [
+          // Work (25)
+          { focus: "work", question: "Какое дело сегодня принесло тебе энергию, а какое — выпило ее до дна?" },
+          { focus: "work", question: "Если бы твоя должность называлась «Миссия», как бы она звучала?" },
+          { focus: "work", question: "Что ты продолжаешь делать только потому, что «уже поздно что-то менять»?" },
+          { focus: "work", question: "В чем твоя уникальная «суперсила», которую ты боишься проявлять?" },
+          { focus: "work", question: "Если бы тебе разрешили работать всего 2 часа в неделю, на что бы ты их потратил(а)?" },
+          { focus: "work", question: "Кто в твоем окружении заставляет тебя чувствовать себя маленьким и некомпетентным?" },
+          { focus: "work", question: "Какую одну вещь в своей работе ты бы изменил(а) сегодня, если бы не боялся осуждения?" },
+          { focus: "work", question: "Ты сейчас бежишь к цели или от проблемы?" },
+          { focus: "work", question: "Что самое смелое ты сделал(а) на этой неделе в профессиональном плане?" },
+          { focus: "work", question: "Какой совет ты бы дал(а) самому себе в первый день на этой работе?" },
+          { focus: "work", question: "Какой проект ты бы начал(а) завтра, если бы у тебя был безусловный доход?" },
+          { focus: "work", question: "Если бы твоя карьера была деревом, оно сейчас цветет, дает плоды или сохнет?" },
+          { focus: "work", question: "Что ты терпишь на работе только ради того, чтобы не казаться «неудачником»?" },
+          { focus: "work", question: "Какая профессиональная мечта кажется тебе слишком «дерзкой», чтобы произнести ее вслух?" },
+          { focus: "work", question: "Если бы ты нанял(а) себя как сотрудника, за что бы уволил(а) в первую очередь?" },
+          { focus: "work", question: "В какой момент работы ты в последний раз чувствовал(а) состояние «потока»?" },
+          { focus: "work", question: "Что ты делаешь на работе «автоматически», давно перестав вкладывать смысл?" },
+          { focus: "work", question: "Если бы твоя работа была вкладом в будущее, что бы ты хотел(а) оставить после себя?" },
+          { focus: "work", question: "Какое твое умение люди недооценивают, потому что ты сам(а) его не ценишь?" },
+          { focus: "work", question: "Чьему профессиональному пути ты завидуешь и что именно в нем тебя цепляет?" },
+          { focus: "work", question: "Какой конфликт на работе ты избегаешь, хотя он мог бы все прояснить?" },
+          { focus: "work", question: "Если бы ты мог(ла) изменить одну черту своего начальника, что бы это было?" },
+          { focus: "work", question: "Какую цену ты на самом деле платишь за свой текущий уровень дохода?" },
+          { focus: "work", question: "Что ты считаешь своей «зоной гениальности», где тебе нет равных?" },
+          { focus: "work", question: "Какое одно маленькое действие завтра сделает твой рабочий день на 10% осмысленнее?" },
+
+          // Relationships (25)
+          { focus: "relationships", question: "Кого в своей жизни ты любишь «за что-то», а кого — вопреки всему?" },
+          { focus: "relationships", question: "О чем ты молчишь в разговоре с близким человеком, чтобы не разрушить хрупкий мир?" },
+          { focus: "relationships", question: "Какую черту в других людях ты ненавидишь больше всего?" },
+          { focus: "relationships", question: "Если бы ты мог(ла) изменить одно правило в своих текущих отношениях, что бы это было?" },
+          { focus: "relationships", question: "Кто тот человек, после общения с которым ты чувствуешь себя «наполненным»?" },
+          { focus: "relationships", question: "Какую роль ты чаще всего играешь в компании: спасатель, критик или невидимка?" },
+          { focus: "relationships", question: "Что для тебя страшнее: быть покинутым или быть поглощенным другим человеком?" },
+          { focus: "relationships", question: "Если бы твои отношения были погодой, то какой именно сейчас?" },
+          { focus: "relationships", question: "Чье одобрение ты все еще пытаешься заслужить, хотя этого человека уже нет рядом?" },
+          { focus: "relationships", question: "Какое «нет», которое ты не сказал(а) вовремя, сейчас давит на тебя?" },
+          { focus: "relationships", question: "Что ты пытаешься «исправить» в близких, вместо того чтобы принять?" },
+          { focus: "relationships", question: "Какое качество родителей ты больше всего боишься повторить в себе?" },
+          { focus: "relationships", question: "О чем бы ты спросил(а) человека, с которым давно не общаешься, если бы это было безопасно?" },
+          { focus: "relationships", question: "Если бы любовь была навыком, в чем тебе нужно потренироваться прямо сейчас?" },
+          { focus: "relationships", question: "Насколько ты чувствуешь себя «видимым» и понятым в своем окружении?" },
+          { focus: "relationships", question: "Какую часть своей личности ты подавляешь, чтобы не расстраивать близких?" },
+          { focus: "relationships", question: "Что ты ищешь в других, чего не можешь дать себе сам(а)?" },
+          { focus: "relationships", question: "Если бы твои отношения были танцем, кто ведет, а кто наступает на ноги?" },
+          { focus: "relationships", question: "Кому ты до сих пор не можешь простить то, что он не оправдал твоих ожиданий?" },
+          { focus: "relationships", question: "Как часто ты говоришь «я люблю» поступками, которые другой не считывает?" },
+          { focus: "relationships", question: "Какую личную границу тебе труднее всего защищать?" },
+          { focus: "relationships", question: "Если бы ты был(а) своим другом, что бы посоветовал(а) себе изменить в общении?" },
+          { focus: "relationships", question: "Какое воспоминание о близости согревает тебя, когда тебе одиноко?" },
+          { focus: "relationships", question: "В чем ты сейчас конкурируешь с теми, кого любишь?" },
+          { focus: "relationships", question: "Что ты готов(а) отпустить в отношениях, чтобы стать свободнее?" },
+
+          // Meaning (25)
+          { focus: "meaning", question: "Если бы ты был(а) уверен(а), что тебя поймут правильно, что бы ты сказал(а) миру?" },
+          { focus: "meaning", question: "Какая ценность для тебя важнее: комфортная ложь или болезненная правда?" },
+          { focus: "meaning", question: "В какой момент своей жизни ты чувствовал(а) себя максимально «на своем месте»?" },
+          { focus: "meaning", question: "Если бы ты мог(ла) оставить после себя только одну фразу, какой бы она была?" },
+          { focus: "meaning", question: "На что ты тратишь время, понимая, что это не приносит ни радости, ни пользы?" },
+          { focus: "meaning", question: "Что ты считаешь своим самым большим достижением, о котором никто не знает?" },
+          { focus: "meaning", question: "Если бы твоя жизнь была фильмом, какой жанр это был бы сейчас?" },
+          { focus: "meaning", question: "Чему ты научился(лась) у своей самой большой боли?" },
+          { focus: "meaning", question: "Что для тебя означает «быть свободным» прямо сейчас?" },
+          { focus: "meaning", question: "Если бы ты проснулся(лась) без всего материального, что бы осталось твоим фундаментом?" },
+          { focus: "meaning", question: "Что ты считаешь своим «предназначением», если убрать пафос и оставить суть?" },
+          { focus: "meaning", question: "Какое событие разделило твою жизнь на «до» и «после»?" },
+          { focus: "meaning", question: "Если бы ты встретил(а) Вселенную, какой один вопрос ты бы задал(а)?" },
+          { focus: "meaning", question: "В чем ты видишь красоту в те дни, когда все идет наперекосяк?" },
+          { focus: "meaning", question: "Какую свою «теневую» сторону ты наконец готов(а) принять?" },
+          { focus: "meaning", question: "Если бы ты точно знал(а), что реинкарнация существует, кем бы ты вернулся(лась)?" },
+          { focus: "meaning", question: "Что в мире вызывает у тебя праведный гнев? Это указывает на твои ценности." },
+          { focus: "meaning", question: "Какое обещание, данное самому себе, ты нарушаешь чаще всего?" },
+          { focus: "meaning", question: "Если бы твоя жизнь была посланием, что бы в нем было написано?" },
+          { focus: "meaning", question: "В чем разница между тем, кем ты кажешься, и тем, кто ты есть на самом деле?" },
+          { focus: "meaning", question: "Что для тебя означает слово «достаточно»?" },
+          { focus: "meaning", question: "Какую свою слабость ты мог(ла) бы превратить в источник силы?" },
+          { focus: "meaning", question: "Какой вопрос ты бы задал(а) себе самому через 10 лет?" },
+          { focus: "meaning", question: "За что ты готов(а) сражаться, даже если останешься в одиночестве?" },
+          { focus: "meaning", question: "Что прямо сейчас делает тебя по-настоящему живым?" },
+
+          // State (25)
+          { focus: "state", question: "Какая часть твоего тела сейчас больше всего нуждается во внимании?" },
+          { focus: "state", question: "Если бы твое текущее настроение было музыкой, какой это был бы инструмент?" },
+          { focus: "state", question: "Что ты делаешь прямо сейчас, чтобы убежать от своих настоящих чувств?" },
+          { focus: "state", question: "Когда ты в последний раз делал(а) что-то просто ради процесса, а не результата?" },
+          { focus: "state", question: "Какое событие за последние сутки заставило твое сердце биться быстрее?" },
+          { focus: "state", question: "От чего тебе нужно «очистить» свое пространство сегодня?" },
+          { focus: "state", question: "Сколько процентов твоей энергии сейчас направлено в прошлое, а сколько — в «сейчас»?" },
+          { focus: "state", question: "Что бы ты прошептал(а) себе маленькому, если бы мог(ла) его обнять?" },
+          { focus: "state", question: "Что самое доброе ты сделал(а) для себя за последние три дня?" },
+          { focus: "state", question: "Какую маску ты надеваешь чаще всего, выходя из дома?" },
+          { focus: "state", question: "Какой ритуал заботы о себе ты постоянно откладываешь на «потом»?" },
+          { focus: "state", question: "Где в твоем доме сейчас самый большой беспорядок? Это отражение состояния." },
+          { focus: "state", question: "На сколько баллов из 10 ты сейчас чувствуешь связь со своим телом?" },
+          { focus: "state", question: "Что ты чувствуешь, когда остаешься в полной тишине на 15 минут?" },
+          { focus: "state", question: "Какое слово могло бы стать твоим личным девизом на этот месяц?" },
+          { focus: "state", question: "Если бы ты мог(ла) делегировать одну свою тревогу другому, что бы это было?" },
+          { focus: "state", question: "Какая привычка забирает у тебя больше всего сил?" },
+          { focus: "state", question: "В какой одежде ты чувствуешь себя максимально «собой»?" },
+          { focus: "state", question: "Что ты сейчас чувствуешь к человеку, который смотрит на тебя из зеркала?" },
+          { focus: "state", question: "Какое место на земле дает тебе мгновенное чувство покоя?" },
+          { focus: "state", question: "О чем ты думаешь в первые 60 секунд после пробуждения?" },
+          { focus: "state", question: "Если бы твое тело могло говорить, какой орган сейчас кричит громче всех?" },
+          { focus: "state", question: "Чего в твоей жизни сейчас слишком много, а чего — мало?" },
+          { focus: "state", question: "Какое разрешение ты должен(на) дать себе прямо сегодня?" },
+          { focus: "state", question: "Что ты можешь сделать прямо сейчас, чтобы твои плечи расслабились?" },
+        ],
+        fi: [
+          // Work (25)
+          { focus: "work", question: "Mikä työtehtävä toi sinulle tänään energiaa ja mikä vei sen pohjaan asti?" },
+          { focus: "work", question: "Jos tehtävänimesi olisi “Missio”, miltä se kuulostaisi?" },
+          { focus: "work", question: "Mitä jatkat tekemistä vain siksi, että “on jo liian myöhäistä muuttaa”?" },
+          { focus: "work", question: "Mikä on ainutlaatuinen “supervoimasi”, jota pelkäät näyttää?" },
+          { focus: "work", question: "Jos saisit tehdä töitä vain 2 tuntia viikossa, mihin käyttäisit ne?" },
+          { focus: "work", question: "Kuka ympärilläsi saa sinut tuntemaan itsesi pieneksi ja osaamattomaksi?" },
+          { focus: "work", question: "Minkä yhden asian työssäsi muuttaisit tänään, jos et pelkäisi tuomituksi tulemista?" },
+          { focus: "work", question: "Juoksetko nyt kohti tavoitetta vai pakoon ongelmaa?" },
+          { focus: "work", question: "Mikä oli rohkein ammatillinen tekosi tällä viikolla?" },
+          { focus: "work", question: "Minkä neuvon antaisit itsellesi ensimmäisenä työpäivänäsi?" },
+          { focus: "work", question: "Minkä projektin aloittaisit huomenna, jos sinulla olisi ehdoton perustulo?" },
+          { focus: "work", question: "Jos urasi olisi puu, kukoistaako se, kantaako se hedelmää vai kuihtuuko?" },
+          { focus: "work", question: "Mitä siedät työssäsi vain siksi, ettet näyttäisi “luuserilta”?" },
+          { focus: "work", question: "Mikä ammatillinen unelma tuntuu liian “uhkarohkealta” sanoa ääneen?" },
+          { focus: "work", question: "Jos palkkaisit itsesi työntekijäksi, mistä irtisanoisit itsesi ensimmäisenä?" },
+          { focus: "work", question: "Milloin työssäsi tunsit viimeksi “flow”-tilan?" },
+          { focus: "work", question: "Mitä teet työssäsi automaattisesti, ilman merkitystä?" },
+          { focus: "work", question: "Jos työsi olisi panos tulevaisuuteen, mitä haluaisit jättää jälkeesi?" },
+          { focus: "work", question: "Mitä taitoasi ihmiset aliarvioivat, koska et itse arvosta sitä?" },
+          { focus: "work", question: "Kenen ammatillista polkua kadehdit ja mikä siinä tarkalleen vetää puoleensa?" },
+          { focus: "work", question: "Mitä konfliktia työssä välttelet, vaikka se voisi selkeyttää kaiken?" },
+          { focus: "work", question: "Jos voisit muuttaa yhden piirteen esimiehessäsi, mikä se olisi?" },
+          { focus: "work", question: "Mitä hintaa todella maksat nykyisestä tulotasostasi?" },
+          { focus: "work", question: "Mikä on “neroutesi alue”, jossa olet vailla vertaa?" },
+          { focus: "work", question: "Mikä yksi pieni teko huomenna tekisi työpäivästäsi 10% merkityksellisemmän?" },
+
+          // Relationships (25)
+          { focus: "relationships", question: "Ketä elämässäsi rakastat “jonkin vuoksi” ja ketä rakastat kaikesta huolimatta?" },
+          { focus: "relationships", question: "Mistä vaiet puhuessasi läheisen kanssa, jotta et rikkoisi haurasta rauhaa?" },
+          { focus: "relationships", question: "Mitä piirrettä muissa ihmisissä vihaat eniten?" },
+          { focus: "relationships", question: "Jos voisit muuttaa yhden säännön nykyisissä suhteissasi, mikä se olisi?" },
+          { focus: "relationships", question: "Kenen kanssa keskustelun jälkeen tunnet itsesi “täydeksi”?" },
+          { focus: "relationships", question: "Mitä roolia näyttelet useimmin porukassa: pelastaja, kriitikko vai näkymätön?" },
+          { focus: "relationships", question: "Mikä on sinulle pelottavampaa: tulla hylätyksi vai tulla niellyksi toisen toimesta?" },
+          { focus: "relationships", question: "Jos suhteesi olisi sää, millainen se on juuri nyt?" },
+          { focus: "relationships", question: "Kenen hyväksyntää yrität yhä ansaita, vaikka hän ei ole enää lähellä?" },
+          { focus: "relationships", question: "Mikä “ei”, jota et sanonut ajoissa, painaa sinua nyt?" },
+          { focus: "relationships", question: "Mitä yrität “korjata” läheisissäsi sen sijaan, että hyväksyisit?" },
+          { focus: "relationships", question: "Mitä vanhempiesi piirrettä pelkäät eniten toistavasi?" },
+          { focus: "relationships", question: "Mitä kysyisit ihmiseltä, jolle et ole puhunut pitkään aikaan, jos se olisi turvallista?" },
+          { focus: "relationships", question: "Jos rakkaus olisi taito, mitä sinun pitäisi harjoitella juuri nyt?" },
+          { focus: "relationships", question: "Kuinka nähdyksi ja ymmärretyksi tunnet itsesi omassa piirissäsi?" },
+          { focus: "relationships", question: "Minkä osan persoonastasi tukahdutat, ettet satuttaisi läheisiä?" },
+          { focus: "relationships", question: "Mitä etsit muista, mitä et pysty antamaan itsellesi?" },
+          { focus: "relationships", question: "Jos suhteesi olisi tanssi, kuka vie ja kuka astuu varpaille?" },
+          { focus: "relationships", question: "Kenelle et vieläkään pysty antamaan anteeksi sitä, ettei hän täyttänyt odotuksiasi?" },
+          { focus: "relationships", question: "Kuinka usein sanot “rakastan” teoilla, joita toinen ei huomaa?" },
+          { focus: "relationships", question: "Mitä henkilökohtaista rajaa sinun on vaikeinta puolustaa?" },
+          { focus: "relationships", question: "Jos olisit oma ystäväsi, mitä neuvoisit muuttamaan vuorovaikutuksessa?" },
+          { focus: "relationships", question: "Mikä läheisyyden muisto lämmittää sinua, kun olet yksin?" },
+          { focus: "relationships", question: "Missä kilpailet nyt niiden kanssa, joita rakastat?" },
+          { focus: "relationships", question: "Mistä olet valmis luopumaan suhteissa tullaksesi vapaammaksi?" },
+
+          // Meaning (25)
+          { focus: "meaning", question: "Jos olisit varma, että sinut ymmärretään oikein, mitä sanoisit maailmalle?" },
+          { focus: "meaning", question: "Kumpi on sinulle tärkeämpi arvo: mukava valhe vai kipeä totuus?" },
+          { focus: "meaning", question: "Milloin elämässäsi tunsit olevasi kaikkein eniten “omalla paikallasi”?" },
+          { focus: "meaning", question: "Jos voisit jättää jälkeesi vain yhden lauseen, mikä se olisi?" },
+          { focus: "meaning", question: "Mihin käytät aikaasi tietäen, ettei se tuo iloa eikä hyötyä?" },
+          { focus: "meaning", question: "Mitä pidät suurimpana saavutuksenasi, josta kukaan ei tiedä?" },
+          { focus: "meaning", question: "Jos elämäsi olisi elokuva, mikä genre se olisi juuri nyt?" },
+          { focus: "meaning", question: "Mitä opit suurimmasta kivustasi?" },
+          { focus: "meaning", question: "Mitä “vapaana oleminen” merkitsee sinulle juuri nyt?" },
+          { focus: "meaning", question: "Jos heräisit ilman mitään aineellista, mikä jäisi perustaksesi?" },
+          { focus: "meaning", question: "Mitä pidät “elämäntehtävänäsi”, kun poistetaan paatos ja jätetään ydin?" },
+          { focus: "meaning", question: "Mikä tapahtuma jakoi elämäsi “ennen” ja “jälkeen”?" },
+          { focus: "meaning", question: "Jos tapaisit Universumin, minkä yhden kysymyksen esittäisit?" },
+          { focus: "meaning", question: "Missä näet kauneutta päivinä, jolloin kaikki menee pieleen?" },
+          { focus: "meaning", question: "Minkä “varjopuolesi” olet vihdoin valmis hyväksymään?" },
+          { focus: "meaning", question: "Jos tietäisit varmasti, että jälleensyntyminen on totta, miksi palaisit?" },
+          { focus: "meaning", question: "Mikä maailmassa herättää sinussa oikeutettua vihaa? Se kertoo arvoistasi." },
+          { focus: "meaning", question: "Minkä itsellesi antaman lupauksen rikot useimmin?" },
+          { focus: "meaning", question: "Jos elämäsi olisi viesti, mitä siinä lukisi?" },
+          { focus: "meaning", question: "Mikä on ero sen välillä, millaisena vaikutat, ja sen, kuka todella olet?" },
+          { focus: "meaning", question: "Mitä sana “riittävästi” merkitsee sinulle?" },
+          { focus: "meaning", question: "Minkä heikkoutesi voisit muuttaa voiman lähteeksi?" },
+          { focus: "meaning", question: "Minkä kysymyksen esittäisit itsellesi kymmenen vuoden kuluttua?" },
+          { focus: "meaning", question: "Minkä puolesta olet valmis taistelemaan, vaikka jäisit yksin?" },
+          { focus: "meaning", question: "Mikä juuri nyt tekee sinut aidosti eläväksi?" },
+
+          // State (25)
+          { focus: "state", question: "Mikä kehon osa kaipaa nyt eniten huomiota?" },
+          { focus: "state", question: "Jos nykyinen mielialasi olisi musiikkia, mikä soitin se olisi?" },
+          { focus: "state", question: "Mitä teet juuri nyt paetaksesi todellisia tunteitasi?" },
+          { focus: "state", question: "Milloin viimeksi teit jotain pelkän prosessin, et tuloksen vuoksi?" },
+          { focus: "state", question: "Mikä tapahtuma viimeisen vuorokauden aikana sai sydämesi lyömään nopeammin?" },
+          { focus: "state", question: "Mistä sinun pitäisi “puhdistaa” tilasi tänään?" },
+          { focus: "state", question: "Kuinka suuri osa energiastasi on nyt menneessä, ja kuinka suuri osa nykyhetkessä?" },
+          { focus: "state", question: "Mitä kuiskaisit pienelle itsellesi, jos voisit halata häntä?" },
+          { focus: "state", question: "Mikä on lempein asia, jonka teit itsellesi viimeisen kolmen päivän aikana?" },
+          { focus: "state", question: "Minkä naamion puet useimmiten, kun lähdet ulos?" },
+          { focus: "state", question: "Mitä itsehoitorituaalia lykkäät jatkuvasti “myöhemmäksi”?" },
+          { focus: "state", question: "Missä kotonasi on nyt suurin kaaos? Se heijastaa tilaasi." },
+          { focus: "state", question: "Kuinka vahvaksi koet yhteyden kehoosi asteikolla 1–10 juuri nyt?" },
+          { focus: "state", question: "Mitä tunnet, kun olet täydellisessä hiljaisuudessa 15 minuuttia?" },
+          { focus: "state", question: "Mikä sana voisi olla henkilökohtainen mottonasi tälle kuulle?" },
+          { focus: "state", question: "Jos voisit delegoida yhden huolesi toiselle, mikä se olisi?" },
+          { focus: "state", question: "Mikä tapa vie sinulta eniten voimia?" },
+          { focus: "state", question: "Missä vaatteissa tunnet olosi kaikkein eniten omaksi itseksesi?" },
+          { focus: "state", question: "Mitä tunnet juuri nyt sitä ihmistä kohtaan, joka katsoo sinua peilistä?" },
+          { focus: "state", question: "Mikä paikka maailmassa antaa sinulle välittömän rauhan tunteen?" },
+          { focus: "state", question: "Mitä ajattelet ensimmäisten 60 sekunnin aikana herättyäsi?" },
+          { focus: "state", question: "Jos kehosi voisi puhua, mikä elin huutaisi nyt kovimmin?" },
+          { focus: "state", question: "Mitä elämässäsi on nyt liikaa, ja mitä liian vähän?" },
+          { focus: "state", question: "Minkä luvan sinun täytyy antaa itsellesi tänään?" },
+          { focus: "state", question: "Mitä voit tehdä juuri nyt, jotta hartiasi rentoutuvat?" },
+        ],
+      };
 
       const focusButtons = document.querySelectorAll(".focus-button");
       const randomAllButton = document.getElementById("randomAll");
@@ -822,6 +1042,13 @@
       let currentFocus = null;
       let currentQuestion = null;
       let crystals = 0;
+      const FOCUS_I18N_KEYS = {
+        state: "focus.state",
+        work: "focus.work",
+        relationships: "focus.relationships",
+        meaning: "focus.meaning",
+        all: "focus.randomAll",
+      };
 
       const I18N = {
         en: {
@@ -1102,12 +1329,16 @@
         document.querySelectorAll("[data-i18n-placeholder]").forEach((el) => {
           el.setAttribute("placeholder", t(el.dataset.i18nPlaceholder));
         });
-        if (!currentQuestion) {
+        if (currentFocus) {
+          currentQuestion = null;
+          pickQuestion();
+        } else {
           questionText.textContent = t("question.pickFocus");
         }
         langButtons.forEach((button) => {
           button.classList.toggle("is-active", button.dataset.lang === lang);
         });
+        renderArchive();
       }
 
       function setLanguage(lang) {
@@ -1153,10 +1384,13 @@
           return;
         }
         items.slice(0, 5).forEach((item) => {
+          const focusLabel = FOCUS_I18N_KEYS[item.focus]
+            ? getFocusLabel(item.focus)
+            : item.focusLabel || item.focus;
           const card = document.createElement("div");
           card.className = "story-card";
           card.innerHTML = `
-            <div class="title">${item.focus}</div>
+            <div class="title">${focusLabel}</div>
             <div class="quote">«${item.answer}»</div>
             <div class="stat">${t("archive.questionLabel")} · <span>${item.question}</span></div>
           `;
@@ -1164,9 +1398,18 @@
         });
       }
 
+      function getFocusLabel(key) {
+        const i18nKey = FOCUS_I18N_KEYS[key];
+        return i18nKey ? t(i18nKey) : key;
+      }
+
+      function getQuestionPool() {
+        return QUESTIONS_BY_LANG[currentLang] || QUESTIONS_BY_LANG.en;
+      }
+
       function getFilteredPool() {
-        let pool = QUESTIONS;
-        if (currentFocus && currentFocus !== "Все") {
+        let pool = getQuestionPool();
+        if (currentFocus && currentFocus !== "all") {
           pool = pool.filter((q) => q.focus === currentFocus);
         }
         return pool;
@@ -1194,7 +1437,7 @@
       });
 
       randomAllButton.addEventListener("click", () => {
-        currentFocus = "Все";
+        currentFocus = "all";
         focusButtons.forEach((b) => b.classList.remove("is-pressed"));
         pickQuestion();
       });
@@ -1216,6 +1459,7 @@
         const archive = getArchive();
         archive.unshift({
           focus: currentFocus,
+          focusLabel: getFocusLabel(currentFocus),
           question: currentQuestion.question,
           answer,
           createdAt: new Date().toISOString(),
@@ -1248,7 +1492,8 @@
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-              focus: currentFocus,
+              focus: getFocusLabel(currentFocus),
+              focusKey: currentFocus,
               question: currentQuestion.question,
               answer,
             }),
