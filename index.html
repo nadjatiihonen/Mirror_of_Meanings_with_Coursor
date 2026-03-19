@@ -1311,6 +1311,7 @@
       const langButtons = document.querySelectorAll(".lang-button");
       const metaDescription = document.querySelector('meta[name="description"]');
       let currentLang = "en";
+      const API_BASE = "https://mirror-of-meanings-with-coursor.onrender.com";
 
       function t(key) {
         return I18N[currentLang]?.[key] ?? I18N.en?.[key] ?? key;
@@ -1488,7 +1489,7 @@
         aiMetaphor.textContent = "";
         copyStatus.textContent = "";
         try {
-          const response = await fetch("/api/coach", {
+          const response = await fetch(`${API_BASE}/api/coach`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
